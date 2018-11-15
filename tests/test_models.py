@@ -2,7 +2,7 @@
 import pytest
 
 # from django.db.utils import IntegrityError
-from backend.distribution.models import ALL_MODELS
+from backend.records.models import ALL_MODELS
 
 
 @pytest.mark.django_db

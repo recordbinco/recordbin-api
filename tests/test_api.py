@@ -3,8 +3,14 @@ import pytest
 
 
 @pytest.mark.django_db
-def test_api_root(client):
+def test_api_view(client):
     response = client.get("/api/v1/")
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_api_admin(client):
+    response = client.get("/")
     assert response.status_code == 200
 
 
@@ -14,8 +20,6 @@ def test_docs(client):
     assert response.status_code == 200
     # requires collectstatic
     response = client.get("/redoc/")
-    assert response.status_code == 200
-    response = client.get("/swagger.json")
     assert response.status_code == 200
 
 
