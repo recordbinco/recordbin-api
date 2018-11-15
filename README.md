@@ -1,75 +1,65 @@
-# Record Bin
+# Record Bin (WIP)
 
-Django Based, Minimal Rest API ro receive log records
+Record Bin is flexible deployable API Service that can receive schemaless records for persistent storage.
 
-### Launch Server
-
-- Run Dev Server
+### Example
 
 ```
-docker-compose up
+curl --header "Content-Type: application/json" \
+     --request POST \
+     --data '{"username":"xyz","password":"xyz"}' \
+     http://myapp.herokuapp.com/api/v1/records/
 ```
 
-- Inspect
+## Development Server
 
 ```
-docker-compose run web bash
+$ git clone git@github.com:gtalarico/recordbin.git
+$ cd recordbin
 ```
 
-### Database
+### Docker
 
-- Launch
-
-```
-docker-compose up db
-```
-
-- Inspect / Connect from Host
+- Run Local Server
 
 ```
-psql -p 5433 -d logger -U postgres -h 0.0.0.0
+$ docker-compose up -d db
+$ docker-compose up web
 ```
 
-# Heroku
+Server will run as if in a Production enviroment.
+To setup a development enviroment with debug debug, create a `.env`
+file with the following:
+
+```
+DJANGO_DEBUG=1
+DJANGO_ALLOWED_HOSTS=*
+```
+
+In development mode, dev server will include an admin user (username: admin, pwd: admin).
+
+- Inspect / Manage
+
+```
+$ docker-compose run web bash
+```
+
+## Heroku Deployment
+
+### Setup App
+
+`heroku apps:create <appname>`
+`heroku git:remote --app <appname>`
+`heroku addons:create heroku-postgresql:hobby-dev`
+`heroku config:set DJANGO_ALLOWED_HOSTS=<appname>.herokuapp.com`
+`heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com`
+
+### Push and Release Code
 
 `heroku container:login`
-`heroku container:push web -r staging`
-`heroku container:release web -r staging`
-`heroku run python manage.py createsuperuser -r staging`
+`heroku container:push web`
+`heroku container:release web`
 
-## Deploy Legacy
+### Create Super User
 
-```
-$ heroku apps:create logger
-$ heroku git:remote --app logger
-$ heroku buildpacks:add heroku/python
-$ heroku addons:create heroku-postgresql:hobby-dev
-$ heroku config:set DJANGO_ALLOWED_HOSTS=yourdomain.com
-$ git push heroku
-```
-
-The python buildpack will detect the `pipfile` and install all the python dependencies.
-`collectstatic` will run automatically.
-
-The `Procfile` will run Django migrations and then launch Django'S app using gunicorn,
-as recommended by heroku.
-
-### Template Structure
-
-| Location          | Content                         |
-| ----------------- | ------------------------------- |
-| `/backend`        | Django Project & Backend Config |
-| `/backend/logger` | Django App (`/api/v1/`)         |
-
-## Setup
-
-```
-$ git clone {URL}
-$ cd genomevr
-$ pipenv install --dev & pipenv shell
-$ python manage.py migrate
-```
-
-```
-docker-compose run web python manage.py makemigrations records
-```
+`heroku run python manage.py createsuperuser`
