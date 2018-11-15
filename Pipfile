@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+gunicorn = "*"
+whitenoise = "==4.0"
+dj-database-url = "*"
+"psycopg2" = "*"
+jsonfield = "*"
+django-filter = "*"
+pytest = "*"
+drf-yasg = {extras = ["validation"], version = "*"}
+pytest-django = "*"
+pyswagger = "*"
+python-decouple = "*"
+pytest-cov = "*"
+django-jet = "*"
+
+[dev-packages]
+"flake8" = "*"
+mypy = "*"
+black = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

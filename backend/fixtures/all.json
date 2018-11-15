@@ -1,0 +1,12 @@
+[
+  {
+    "model": "records.record",
+    "pk": "115cac3d-7dfc-44ca-94f8-1b617cf2a6c9",
+    "fields": {
+      "data": {
+        "name": "Gui"
+      },
+      "created_on": "2018-11-15T03:59:35.108Z"
+    }
+  }
+]

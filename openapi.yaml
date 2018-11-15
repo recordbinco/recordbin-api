@@ -1,0 +1,74 @@
+swagger: "2.0"
+info:
+  title: Record Bin
+  description: Record Bin API
+  contact:
+    email: gui.talarico+recordbin@gmail.com
+  license:
+    name: MIT
+  version: v1
+host: 0.0.0.0:8000
+schemes:
+  - http
+basePath: /api/v1/
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /records/:
+    get:
+      operationId: api_v1_records_list
+      description: Return a list of records.
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Record"
+      tags:
+        - api
+    post:
+      operationId: api_v1_records_create
+      description: Create a new record instance.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Record"
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: "#/definitions/Record"
+      tags:
+        - api
+    parameters: []
+definitions:
+  Record:
+    required:
+      - data
+    type: object
+    properties:
+      id:
+        title: Id
+        type: string
+        format: uuid
+        readOnly: true
+      created_on:
+        title: Created on
+        type: string
+        format: date-time
+        readOnly: true
+      data:
+        title: Data
+        type: object
+        minLength: 1
