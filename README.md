@@ -84,6 +84,7 @@ Note: In development mode (see section above), dev server will include an admin 
 
 ## TODO
 
+- Add relationship: record -> token
 - Fix Tests (test db config - sqlite not working because of json field)
 - Add instructions for querying / retrieving data
 - Add Pagination
