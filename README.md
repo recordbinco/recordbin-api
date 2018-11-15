@@ -48,18 +48,24 @@ $ docker-compose run web bash
 
 ### Setup App
 
-`heroku apps:create <appname>`
-`heroku git:remote --app <appname>`
-`heroku addons:create heroku-postgresql:hobby-dev`
-`heroku config:set DJANGO_ALLOWED_HOSTS=<appname>.herokuapp.com`
-`heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com`
+```
+heroku apps:create <appname>
+heroku git:remote --app <appname>
+heroku addons:create heroku-postgresql:hobby-dev
+heroku config:set DJANGO_ALLOWED_HOSTS=<appname>.herokuapp.com
+heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com
+```
 
 ### Push and Release Code
 
-`heroku container:login`
-`heroku container:push web`
-`heroku container:release web`
+```
+heroku container:login
+heroku container:push web
+heroku container:release web
+```
 
 ### Create Super User
 
-`heroku run python manage.py createsuperuser`
+```
+heroku run python manage.py createsuperuser
+```
