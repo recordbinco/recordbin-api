@@ -9,8 +9,12 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # Set to production domain - multiple values are allowed
 # (eg. 'django-vue-template-demo.herokuapp.com')
-ALLOWED_HOSTS = config(
-    "DJANGO_ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+ALLOWED_HOSTS = (
+    ["*"]
+    if DEBUG
+    else config(
+        "DJANGO_ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+    )
 )
 
 

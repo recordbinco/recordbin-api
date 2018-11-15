@@ -38,3 +38,6 @@ class RecordSerializer(serializers.ModelSerializer):
         """ Pass through to pass data as is and ignore model fields """
         # www.django-rest-framework.org/api-guide/serializers/#to_internal_valueself-data
         return request_data
+
+
+ALL_MODELS = [Record]

@@ -10,8 +10,5 @@ ALLOWED_HOSTS = ["*"]
 # os.environ["DJANGO_LIVE_TEST_SERVER_ADDRESS"] = "localhost:8001"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join("tests", "db_test.sqlite3"),
-    }
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db_test.sqlite3"}
 }
