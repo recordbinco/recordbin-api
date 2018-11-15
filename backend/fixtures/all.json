@@ -4,9 +4,21 @@
     "pk": "115cac3d-7dfc-44ca-94f8-1b617cf2a6c9",
     "fields": {
       "data": {
-        "name": "Gui"
+        "username": "gtalarico",
+        "result": 1
       },
       "created_on": "2018-11-15T03:59:35.108Z"
+    }
+  },
+  {
+    "model": "records.record",
+    "pk": "555cac3d-7dfc-44ca-94f8-1b617cf2aaa2",
+    "fields": {
+      "data": {
+        "username": "gtalarico",
+        "result": 1
+      },
+      "created_on": "2018-12-13T01:42:35.001Z"
     }
   }
 ]
