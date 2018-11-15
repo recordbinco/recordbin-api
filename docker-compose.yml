@@ -23,10 +23,10 @@ services:
     env_file:
       - .env
     environment:
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-backend.settings.prod}
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-SecretKey}
-      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-*}
-      - DATABASE_URL=${DATABASE_URL:-postgres://postgres@db:5432/recordbindb}
+      # - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-backend.settings.prod}
+      # - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      # - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-*}
+      # - DATABASE_URL=${DATABASE_URL}
       - PORT=${PORT:-8000}
     depends_on:
       - db
