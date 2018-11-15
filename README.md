@@ -4,11 +4,16 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 
 ### Example
 
+- [Admin Panel](http://ww-recordbin.herokuapp.com/) (admin:admin)
+- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)
+- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)
+- Sample Request
+
 ```
 curl --header "Content-Type: application/json" \
      --request POST \
      --data '{"username":"xyz","password":"xyz"}' \
-     http://myapp.herokuapp.com/api/v1/records/
+     http://ww-recordbin.herokuapp.com/api/v1/records/
 ```
 
 ## Development Server
