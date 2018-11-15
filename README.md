@@ -12,7 +12,7 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 ```
 curl --header "Content-Type: application/json" \
      --request POST \
-     --data '{"username":"xyz","password":"xyz"}' \
+     --data '{"username":"xyz","result":0, "action": "deleted"}' \
      http://ww-recordbin.herokuapp.com/api/v1/records/
 ```
 
