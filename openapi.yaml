@@ -10,7 +10,7 @@ info:
 host: 0.0.0.0:8000
 schemes:
   - http
-basePath: /api/v1/
+basePath: /api/v1
 consumes:
   - application/json
 produces:
@@ -39,11 +39,11 @@ paths:
       operationId: api_v1_records_create
       description: Create a new record instance.
       parameters:
-        - name: data
-          in: body
-          required: true
+        - in: body
+          name: record
+          description: Record
           schema:
-            $ref: "#/definitions/Record"
+            type: object
       responses:
         "201":
           description: ""
@@ -51,7 +51,6 @@ paths:
             $ref: "#/definitions/Record"
       tags:
         - api
-    parameters: []
 definitions:
   Record:
     required:

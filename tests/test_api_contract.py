@@ -9,10 +9,7 @@ from pyswagger.contrib.client.requests import Client
 # FIXTURE_UNIT_MIX_ID = "3da7b9f6-1462-4647-8f03-e825ced535be"
 # FIXTURE_DISTRIBUTION_ID = "8c6eacb6-bf15-4e05-adef-242c7313e2e4"
 
-operation_list = [
-    ("api_v1_records_list", {}),
-    ("api_v1_records_create", {"test": "data"}),
-]
+operation_list = [("api_v1_records_list", {}), ("api_v1_records_create", {})]
 
 
 @pytest.fixture(scope="session")

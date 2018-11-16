@@ -11,7 +11,7 @@ from django.views.decorators.cache import never_cache
 from rest_framework import routers
 
 from .docs import doc_urlpatterns
-from .records.views import RecordViewSet
+from .recordbin.views import RecordViewSet
 
 index_view = never_cache(TemplateView.as_view(template_name="index.html"))
 

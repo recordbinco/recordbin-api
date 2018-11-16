@@ -11,7 +11,7 @@ def test_api_view(client):
 @pytest.mark.django_db
 def test_api_admin(client):
     response = client.get("/")
-    assert response.status_code == 200
+    assert response.status_code in (200, 302)
 
 
 @pytest.mark.django_db
@@ -27,8 +27,3 @@ def test_wsgi():
     from backend.wsgi import application  # noqa
 
     assert application
-
-
-# def test_headers_middleware(client):
-#     response = client.get('/')
-#     assert response.get('cache-control')

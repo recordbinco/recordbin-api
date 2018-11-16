@@ -10,7 +10,7 @@ class Command(BaseCommand):
         path = Path("backend", "fixtures", f"all.json")
         args = [
             "dumpdata",
-            "records",
+            "recordbin",
             "--natural-primary",
             "--indent=1",
             f"--output={path}",

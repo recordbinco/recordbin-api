@@ -79,6 +79,10 @@ heroku run python manage.py createsuperuser
 
 Note: In development mode (see section above), dev server will include an admin user (username: admin, pwd: admin).
 
+# Tests
+
+`docker exec -it 8d3 pytest -s tests/test_api.py`
+
 ## TODO
 
 - Add relationship: record -> token
