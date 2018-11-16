@@ -1,7 +1,7 @@
 """ Settings """
 
 import dj_database_url
-from decouple import config
+from decouple import config, Csv
 
 # Imports base settings
 from .base import *  # noqa
@@ -16,11 +16,10 @@ DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
 if DEBUG:
     SECRET_KEY = config("DJANGO_SECRET_KEY", default="DevSecret")
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default=["*"])
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv(), default="*")
 else:
     SECRET_KEY = config("DJANGO_SECRET_KEY")
-    cast_func = lambda v: [s.strip() for s in v.split(",")]  # noqa
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=cast_func)
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv())
     # (eg. "'django-vue-template-demo.herokuapp.com')
 
 
