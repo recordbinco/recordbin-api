@@ -8,10 +8,10 @@ RUN pip3 install -q -r requirements.txt
 
 ADD . /code/
 
-# This is
-ARG DATABASE_URL="postgres://postgres@db:5432/recordbindb"
-ARG DJANGO_SETTINGS_MODULE="backend.settings.prod"
-ARG DJANGO_SECRET_KEY"DevSecret"
+# Default Docker DB - Set Environment in to override
+ARG DJANGO_SECRET_KEY
+ARG DJANGO_ALLOWED_HOSTS
+ARG DATABASE_URL
 # ARG DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 
 # Can't run here because it requires env vars

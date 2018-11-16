@@ -10,8 +10,16 @@ from django.core.management import call_command
 
 # @pytest.mark.django_db
 def pytest_configure():
+        """ Test Settings """
+        # DEBUG = False
+        # ALLOWED_HOSTS = ["*"]
+        # # os.environ["DJANGO_LIVE_TEST_SERVER_ADDRESS"] = "localhost:8001"
 
-    os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings.test"
+        # DATABASES = {
+        # "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db_test.sqlite3"}
+}
+
+#     os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings.test"
     # settings.DEBUG = False
     # settings.FIXTURE_DIRS = ['api/docs/fixtures/']
     django.setup()
