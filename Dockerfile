@@ -9,6 +9,7 @@ RUN pip3 install -q -r requirements.txt
 ADD . /code/
 
 # Default Docker DB - Set Environment in to override
+ARG DJANGO_DEBUG
 ARG DJANGO_SECRET_KEY
 ARG DJANGO_ALLOWED_HOSTS
 ARG DATABASE_URL
