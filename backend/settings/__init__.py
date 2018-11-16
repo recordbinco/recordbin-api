@@ -1,29 +1,31 @@
 """ Settings """
-
+import os
 import dj_database_url
 from decouple import config, Csv
 
 # Imports base settings
 from .base import *  # noqa
 
-# Configurable Vars
-# DJANGO_DEBUG (default: False)
-# DJANGO_SECRET_KEY (default if DEBUG else required)
-# DJANGO_ALLOWED_HOSTS (default if DEBUG else required)
-# DATABASE_URL (default docker db, else env)
+os.environ.setdefault("DJANGO_DEBUG", "0")
+os.environ.setdefault("DJANGO_ALLOWED_HOSTS", "*")
+os.environ.setdefault("DJANGO_SECRET_KEY", "DevSecret")
+docker_db = "postgres://postgres@db:5432/recordbindb"
+os.environ.setdefault("DATABASE_URL", docker_db)
 
-DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
-
-if DEBUG:
-    SECRET_KEY = config("DJANGO_SECRET_KEY", default="DevSecret")
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv(), default="*")
-else:
-    SECRET_KEY = config("DJANGO_SECRET_KEY")
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv())
-    # (eg. "'django-vue-template-demo.herokuapp.com')
+# See Docker for defaults
+DEBUG = config("DJANGO_DEBUG", cast=bool)
+SECRET_KEY = config("DJANGO_SECRET_KEY")
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv())
 
 
 # DATABASE
-DOCKER_DATABASE_URL = "postgres://postgres@db:5432/recordbindb"
-DATABASE_URL = config("DATABASE_URL", default=None) or DOCKER_DATABASE_URL
-DATABASES = {"default": dj_database_url.config(default=DATABASE_URL)}
+DATABASE_URL = config("DATABASE_URL")
+db_config = dj_database_url.config(default=DATABASE_URL)
+DATABASES = {"default": db_config}  # Django DATABASES
+
+# print(f"------------------------------------")
+# print(f"DEBUG IS: {DEBUG}")
+# print(f"ALLOWED_HOSTS IS: {ALLOWED_HOSTS}")
+# print(f"SECRET_KEY IS: {SECRET_KEY[:5]}... (truncated)")
+# print("DATABASE CONFIG: {USER}@{HOST}:{PORT}/{NAME} ".format(**db_config))
+# print(f"------------------------------------")

@@ -34,16 +34,12 @@ $ docker-compose up web
 
 ##### Development Mode
 
-By default, the server will run as if in a Production enviroment.
-To setup a development enviroment with debug debug, create a `.env`
-file with the following entries:
+By default, the server will run as if in a Production enviroment:
+use Gunicorn and turn debugging off.
 
-```
-DJANGO_DEBUG=1
-DJANGO_ALLOWED_HOSTS=*
-```
-
-These will be read by docker-compose and injected into the docker enviroment.
+To run a local server in Django Debug and use Django Dev server,
+set an environment varriable (`DJANGO_DEBUG=1`) or run
+`env DJANGO_DEBUG=1 docker-compose up web`
 
 - Inspect / Manage
 
@@ -64,6 +60,7 @@ heroku git:remote --app <appname>
 heroku addons:create heroku-postgresql:hobby-dev
 heroku config:set DJANGO_ALLOWED_HOSTS=<appname>.herokuapp.com
 heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com
+heroku config:set DJANGO_DEBUG=0
 ```
 
 ### Push and Release Code
