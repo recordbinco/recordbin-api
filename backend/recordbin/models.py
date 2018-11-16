@@ -1,15 +1,19 @@
 import uuid
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 
 class Record(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = JSONField()
     created_on = models.DateTimeField(auto_now_add=True)
+    token = models.ForeignKey(Token, related_name="records", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
+        print(locals())
         super(Record, self).save(*args, **kwargs)
 
     def __str__(self, **kwargs):

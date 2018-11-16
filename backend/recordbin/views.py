@@ -5,8 +5,8 @@ import re
 
 # Add Auth
 # https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Record, RecordSerializer
 from .filtersets import RecordFilterSet
@@ -25,6 +25,9 @@ class RecordViewSet(
     create:
     Create a new record instance.
     """
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     queryset = Record.objects.all()
     serializer_class = RecordSerializer

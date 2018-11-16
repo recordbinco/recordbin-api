@@ -1,5 +1,13 @@
 [
   {
+    "model": "authtoken.token",
+    "pk": "51620f580086dd9f8f30efed30b248f597f771f9",
+    "fields": {
+      "user": ["admin"],
+      "created": "2018-11-15T00:48:27.063Z"
+    }
+  },
+  {
     "model": "recordbin.record",
     "pk": "115cac3d-7dfc-44ca-94f8-1b617cf2a6c9",
     "fields": {
@@ -7,7 +15,8 @@
         "username": "gtalarico",
         "result": 1
       },
-      "created_on": "2018-11-15T03:59:35.108Z"
+      "created_on": "2018-11-15T03:59:35.108Z",
+      "token": "51620f580086dd9f8f30efed30b248f597f771f9"
     }
   },
   {
@@ -18,7 +27,8 @@
         "username": "gtalarico",
         "result": 1
       },
-      "created_on": "2018-12-13T01:42:35.001Z"
+      "created_on": "2018-12-13T01:42:35.001Z",
+      "token": "51620f580086dd9f8f30efed30b248f597f771f9"
     }
   }
 ]

@@ -17,7 +17,7 @@ if [ $DJANGO_DEBUG -eq "1" ]; then
     echo ">>> seeding database"
     python manage.py seed # Load Seed Data
     python manage.py loaddata backend/fixtures/dev_admin.json
-    python manage.py loaddata backend/fixtures/authtoken.json
+    # python manage.py loaddata backend/fixtures/authtoken.json
     echo ">>> starting Dev Server"
     exec python manage.py runserver 0.0.0.0:$PORT
 else

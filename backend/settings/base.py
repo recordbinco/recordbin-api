@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
-    "backend.recordbin",
     "backend.core",
+    "backend.recordbin",
+    # "backend.recordbin.apps.RecordBinConfig",
 ]
 
 MIDDLEWARE = [
