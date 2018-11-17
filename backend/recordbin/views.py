@@ -3,6 +3,9 @@ from rest_framework import mixins
 from django_filters.rest_framework import DjangoFilterBackend
 import re
 
+from rest_framework.response import Response
+from rest_framework import status
+
 # Add Auth
 # https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
 from rest_framework.authentication import TokenAuthentication
@@ -33,6 +36,15 @@ class RecordViewSet(
     serializer_class = RecordSerializer
     filterset_class = RecordFilterSet
     filter_backends = (DjangoFilterBackend,)
+
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.auth.user.id)
+
+    # def create(self, request):
+    #     user = request.auth.user
+    #     serializer = self.serializer_class(...)
+    #     data = serializer.data
+    #     return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
     def get_queryset(self):
         params = self.request.query_params.copy()

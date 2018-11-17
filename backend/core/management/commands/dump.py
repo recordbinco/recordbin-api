@@ -11,7 +11,16 @@ class Command(BaseCommand):
         args = [
             "dumpdata",
             "recordbin",
-            "--natural-primary",
+            "--natural-foreign",
+            "--indent=1",
+            f"--output={path}",
+        ]
+        call_command(*args)
+        path = Path("backend", "fixtures", f"authtoken.json")
+        args = [
+            "dumpdata",
+            "authtoken",
+            "--natural-foreign",
             "--indent=1",
             f"--output={path}",
         ]

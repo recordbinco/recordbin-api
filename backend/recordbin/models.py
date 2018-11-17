@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 
 from rest_framework import serializers
@@ -10,10 +11,12 @@ class Record(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = JSONField()
     created_on = models.DateTimeField(auto_now_add=True)
-    token = models.ForeignKey(Token, related_name="records", on_delete=models.CASCADE)
+    # token = models.ForeignKey(Token, related_name="records", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="records", on_delete=models.CASCADE
+    )
 
     def save(self, *args, **kwargs):
-        print(locals())
         super(Record, self).save(*args, **kwargs)
 
     def __str__(self, **kwargs):
@@ -36,7 +39,9 @@ class RecordSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ Override create to ensure received data is stored in data field """
-        return Record.objects.create(data=validated_data)
+        # token injected by perform_create override
+        user_id = validated_data.pop("user_id")
+        return Record.objects.create(user_id=user_id, data=validated_data)
 
     def to_internal_value(self, request_data):
         """ Pass through to pass data as is and ignore model fields """

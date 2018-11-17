@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "model": "authtoken.token",
+    "pk": "0512e7301d69094f4c4ab636335abe2311e81c85",
+    "fields": {
+      "user": ["gtalarico"],
+      "created": "2018-11-16T22:56:51.862Z"
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "51620f580086dd9f8f30efed30b248f597f771f9",
+    "fields": {
+      "user": ["admin"],
+      "created": "2018-11-15T00:48:27.063Z"
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "d2d01360ce2b631c13f7344cc74ecfe641b352db",
+    "fields": {
+      "user": ["test"],
+      "created": "2018-11-16T23:21:43.075Z"
+    }
+  }
+]
