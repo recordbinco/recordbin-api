@@ -4,14 +4,12 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 
 from rest_framework import serializers
-from rest_framework.authtoken.models import Token
 
 
 class Record(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = JSONField()
     created_on = models.DateTimeField(auto_now_add=True)
-    # token = models.ForeignKey(Token, related_name="records", on_delete=models.CASCADE)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="records", on_delete=models.CASCADE
     )
@@ -39,7 +37,7 @@ class RecordSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ Override create to ensure received data is stored in data field """
-        # token injected by perform_create override
+        # user_id injected by view:perform_create
         user_id = validated_data.pop("user_id")
         return Record.objects.create(user_id=user_id, data=validated_data)
 

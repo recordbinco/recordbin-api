@@ -15,6 +15,16 @@ from .models import Record, RecordSerializer
 from .filtersets import RecordFilterSet
 
 
+class TokenAuthenticationWithUrlSupport(TokenAuthentication):
+    keyword = "Token"
+
+    def authenticate(self, request):
+        token = request.query_params.get("token")
+        if not token:
+            return super().authenticate(request)
+        return self.authenticate_credentials(token)
+
+
 class RecordViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -29,7 +39,7 @@ class RecordViewSet(
     Create a new record instance.
     """
 
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthenticationWithUrlSupport,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Record.objects.all()
@@ -39,12 +49,6 @@ class RecordViewSet(
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.auth.user.id)
-
-    # def create(self, request):
-    #     user = request.auth.user
-    #     serializer = self.serializer_class(...)
-    #     data = serializer.data
-    #     return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
     def get_queryset(self):
         params = self.request.query_params.copy()
