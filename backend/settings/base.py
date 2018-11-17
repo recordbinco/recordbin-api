@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-SETTINGS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(SETTINGS_DIR)
+SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.dirname(SETTINGS_DIR)
+BASE_DIR = os.path.dirname(BACKEND_DIR)
 
 
 # Application definition
@@ -34,8 +35,9 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
-    "backend.records",
     "backend.core",
+    "backend.recordbin",
+    # "backend.recordbin.apps.RecordBinConfig",
 ]
 
 MIDDLEWARE = [
@@ -102,7 +104,14 @@ REST_FRAMEWORK = {
     # adds ?filter= to viewsets
     # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     # pass request.version by getting namespace on url route
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning"
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "backend.core.auth.TokenAuthenticationWithUrlSupport",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    # Disables api admin view
+    # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
 # Django Yasg + Redoc Settings
@@ -115,7 +124,7 @@ JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_ITEMS = [
     {"app_label": "auth", "items": [{"name": "group"}, {"name": "user"}]},
     {"app_label": "authtoken", "items": [{"name": "token"}]},
-    {"app_label": "records", "items": [{"name": "record"}]},
+    {"app_label": "recordbin", "items": [{"name": "record"}]},
     {
         "label": "Links",
         "items": [

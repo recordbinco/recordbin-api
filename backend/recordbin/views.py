@@ -5,7 +5,6 @@ import re
 
 # Add Auth
 # https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # from rest_framework.permissions import IsAuthenticated
 
 from .models import Record, RecordSerializer
@@ -26,10 +25,16 @@ class RecordViewSet(
     Create a new record instance.
     """
 
+    # authentication_classes = (TokenAuthenticationWithUrlSupport,)
+    # permission_classes = (IsAuthenticated,)
+
     queryset = Record.objects.all()
     serializer_class = RecordSerializer
     filterset_class = RecordFilterSet
     filter_backends = (DjangoFilterBackend,)
+
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.auth.user.id)
 
     def get_queryset(self):
         params = self.request.query_params.copy()

@@ -13,19 +13,14 @@ if [ $DJANGO_DEBUG -eq "1" ]; then
     echo ">>> DJANGO DEBUG is 1"
     echo ">>> Create admin user + token if debugging"
     echo ">>> running migrations"
-
+    python manage.py migrate # Load Seed Data
     echo ">>> seeding database"
     python manage.py seed # Load Seed Data
-    python manage.py loaddata backend/fixtures/dev_admin.json
-    python manage.py loaddata backend/fixtures/authtoken.json
-    echo ">>> starting Dev Server"
+    echo ">>> starting Dev Server on 0.0.0.0:$PORT"
     exec python manage.py runserver 0.0.0.0:$PORT
 else
     echo ">>> DJANGO DEBUG not 1"
-    echo ">>> starting Gunicorn"
-    # exec gunicorn backend.wsgi -b 0.0.0.0:$PORT --log-file -
-    # Start Gunicorn processes
-    # exec python manage.py runserver 0.0.0.0:$PORT
+    echo ">>> starting Gunicorn on 0.0.0.0:$PORT"
     exec gunicorn backend.wsgi \
         --name recordbin \
         --reload
