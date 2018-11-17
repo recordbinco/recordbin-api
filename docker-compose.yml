@@ -41,7 +41,8 @@ services:
     <<: *default-web
     container_name: django_server_test
     command: >
-      bash -c "python manage.py migrate &&
+      bash -c "sleep 8 &&
+      python manage.py migrate &&
       python manage.py seed &&
       pytest -vs"
     ports:
