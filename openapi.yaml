@@ -7,7 +7,6 @@ info:
   license:
     name: MIT
   version: v1
-host: 0.0.0.0:8000
 schemes:
   - http
 basePath: /api/v1
@@ -16,10 +15,18 @@ consumes:
 produces:
   - application/json
 securityDefinitions:
-  Basic:
-    type: basic
+  # X-API-Key: abcdef12345
+  APIKeyHeader:
+    type: apiKey
+    in: header
+    name: Authorization
+  # /path?api_key=abcdef12345
+  APIKeyQueryParam:
+    type: apiKey
+    in: query
+    name: token
 security:
-  - Basic: []
+  - APIKeyHeader: []
 paths:
   /records/:
     get:

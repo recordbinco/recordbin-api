@@ -1,26 +1,44 @@
 [
   {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$120000$Vpp0vFWkS79w$7TbJBVlEQ2OTF93PdTckum+6HslT2gECoBm3uJct8+c=",
+      "last_login": "2018-11-17T19:39:05.956Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@admin.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-11-17T19:37:59.605Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
     "model": "recordbin.record",
-    "pk": "115cac3d-7dfc-44ca-94f8-1b617cf2a6c9",
+    "pk": "01baf783-c07a-48a8-9f02-9fabb6f08d67",
     "fields": {
       "data": {
         "result": 1,
-        "username": "admin-record"
+        "username": "gtalarico"
       },
-      "created_on": "2018-11-15T03:59:35.108Z",
+      "created_on": "2018-11-17T19:39:25.524Z",
       "user": ["admin"]
     }
   },
   {
     "model": "recordbin.record",
-    "pk": "9ba13246-085e-459e-9eb7-ba3b23d9de41",
+    "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
     "fields": {
       "data": {
-        "result": 1,
-        "username": "gtalarico-record"
+        "result": 0,
+        "username": "jfriedman"
       },
-      "created_on": "2018-11-16T23:55:25.834Z",
-      "user": ["gtalarico"]
+      "created_on": "2018-11-17T19:39:45.275Z",
+      "user": ["admin"]
     }
   }
 ]

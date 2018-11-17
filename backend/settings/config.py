@@ -6,6 +6,8 @@ from decouple import config, Csv
 os.environ.setdefault("DJANGO_DEBUG", "0")
 os.environ.setdefault("DJANGO_ALLOWED_HOSTS", "*")
 os.environ.setdefault("DJANGO_SECRET_KEY", "DevSecret")
+
+# Set DATABASE_URL in env to override (tests, heroku)
 docker_db = "postgres://postgres@db:5432/recordbindb"
 os.environ.setdefault("DATABASE_URL", docker_db)
 
@@ -13,7 +15,6 @@ os.environ.setdefault("DATABASE_URL", docker_db)
 DEBUG = config("DJANGO_DEBUG", cast=bool)
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=Csv())
-
 
 # DATABASE
 DATABASE_URL = config("DATABASE_URL")

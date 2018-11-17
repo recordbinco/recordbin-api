@@ -2,9 +2,10 @@
 import pytest
 import json
 
-from pyswagger import App
+from pyswagger import App, Security
 from pyswagger.contrib.client.requests import Client
-
+from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 # FIXTURE_UNIT_MIX_ID = "3da7b9f6-1462-4647-8f03-e825ced535be"
 # FIXTURE_DISTRIBUTION_ID = "8c6eacb6-bf15-4e05-adef-242c7313e2e4"
@@ -26,9 +27,22 @@ def test_all_operations_tested(app):
     assert len(defined_ops) == len(operation_list)
 
 
+@pytest.mark.django_db
+@pytest.fixture
+def auth():
+    auth = Security(app)
+    token = Token.objects.first()
+    auth.update_with("APIKeyHeader", f"Token {token.key}")
+    return auth
+
+
+@pytest.mark.django_db
 @pytest.mark.parametrize("operation_name,kwargs", operation_list)
 def test_contracts(app, client, operation_name, kwargs):
-    client = Client()
+    auth = Security(app)
+    token = Token.objects.first()
+    auth.update_with("APIKeyHeader", f"Token {token.key}")
+    client = Client(auth)
     req, resp = app.op[operation_name](**kwargs)
     resp = client.request((req, resp))
     assert resp.status in (200, 201)
@@ -36,8 +50,10 @@ def test_contracts(app, client, operation_name, kwargs):
         assert resp.data
 
 
-# def test_pricing_has_windows_filter(app, client):
-#     client = Client()
+# def test_pricing_has_windows_filter(app, client, token):
+# client = Client()
+
+
 #     req, resp = app.op["pricing-exports_list"](has_window=True)
 #     resp = client.request((req, resp))
 #     assert resp.status == 200
