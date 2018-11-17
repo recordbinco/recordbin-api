@@ -37,16 +37,13 @@ services:
     container_name: django_server
     depends_on:
       - db
-  webtest:
+  tests:
     <<: *default-web
     container_name: django_server_test
-    # command: python manage.py runserver 0.0.0.0:8000
     command: >
       bash -c "python manage.py migrate &&
       python manage.py seed &&
-      python manage.py runserver 0.0.0.0:8000"
-      # pytest"
-      #  pytest"
+      pytest -vs"
     ports:
       - "8001:8000"
     environment:

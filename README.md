@@ -10,7 +10,7 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 - Sample Request
 
 ```
-curl --header "Content-Type: application/json" \
+curl --header "Content-Type: application/json, "Authorization: Token <token>" \
      --request POST \
      --data '{"username":"xyz","result":0, "action": "deleted"}' \
      http://ww-recordbin.herokuapp.com/api/v1/records/
@@ -81,12 +81,16 @@ Note: In development mode (see section above), dev server will include an admin 
 
 # Tests
 
-`docker exec -it 8d3 pytest -s tests/test_api.py`
+```
+docker-compose run tests
+```
 
 ## TODO
 
-- Change Schema to receive {"data": }
-- Add Auth Docs and Instructions
-- Add Pagination
-- Fix Tests (test db config - sqlite not working because of json field)
-- Add instructions for querying / retrieving data
+- [ ] Change Schema to receive {"data": }
+- [ ] Add Pagination
+- [ ] Add instructions for querying / retrieving data
+- [ ] Add Auth Docs
+- [ ] Add CSV/Json endpoint
+- [x] Add Auth
+- [x] Fix Tests (test db config - sqlite not working because of json field)
