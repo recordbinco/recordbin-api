@@ -1,7 +1,23 @@
-version: "3"
+version: "3.4"
+
+x-web: &default-web
+  stdin_open: true
+  tty: true
+  restart: always
+  build:
+    context: .
+    dockerfile: Dockerfile.web
+  volumes:
+    - .:/code
+  ports:
+    - "${PORT:-8000}:${PORT:-8000}"
+  environment:
+    - DJANGO_DEBUG=${DJANGO_DEBUG:-0}
+    - PORT=${PORT:-8000}
 
 services:
   db:
+    container_name: postgres_db
     image: postgres
     restart: always
     environment:
@@ -9,6 +25,7 @@ services:
     ports:
       - "5433:5432"
   testdb:
+    container_name: postgres_test_db
     image: postgres
     restart: always
     environment:
@@ -16,23 +33,24 @@ services:
     ports:
       - "5434:5432"
   web:
+    <<: *default-web
     container_name: django_server
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/code
-    ports:
-      - "${PORT:-8000}:${PORT:-8000}"
-    stdin_open: true
-    tty: true
-    restart: always
-    environment:
-      - DJANGO_DEBUG=${DJANGO_DEBUG:-0}
-      - PORT=${PORT:-8000}
-      # - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      # - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-*}
-      # - DATABASE_URL=${DATABASE_URL}
     depends_on:
       - db
-      # - testdb
+  webtest:
+    <<: *default-web
+    container_name: django_server_test
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "python manage.py migrate &&
+      python manage.py seed &&
+      python manage.py runserver 0.0.0.0:8000"
+    #   pytest"
+    ports:
+      - "8001:8000"
+    environment:
+      - DJANGO_DEBUG=0
+      - PORT=8000
+      - DATABASE_URL=postgres://postgres@testdb:5432/test_recordbindb
+    depends_on:
+      - testdb
