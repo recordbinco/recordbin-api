@@ -104,7 +104,14 @@ REST_FRAMEWORK = {
     # adds ?filter= to viewsets
     # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     # pass request.version by getting namespace on url route
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning"
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "backend.core.auth.TokenAuthenticationWithUrlSupport",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    # Disables api admin view
+    # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
 # Django Yasg + Redoc Settings

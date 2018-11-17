@@ -29,7 +29,7 @@ def test_all_operations_tested(app):
 
 @pytest.mark.django_db
 @pytest.fixture
-def auth():
+def auth(app):
     auth = Security(app)
     token = Token.objects.first()
     auth.update_with("APIKeyHeader", f"Token {token.key}")
@@ -38,24 +38,10 @@ def auth():
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("operation_name,kwargs", operation_list)
-def test_contracts(app, client, operation_name, kwargs):
-    auth = Security(app)
-    token = Token.objects.first()
-    auth.update_with("APIKeyHeader", f"Token {token.key}")
+def test_contracts(app, auth, operation_name, kwargs):
     client = Client(auth)
     req, resp = app.op[operation_name](**kwargs)
     resp = client.request((req, resp))
     assert resp.status in (200, 201)
     if resp.status == 200:
         assert resp.data
-
-
-# def test_pricing_has_windows_filter(app, client, token):
-# client = Client()
-
-
-#     req, resp = app.op["pricing-exports_list"](has_window=True)
-#     resp = client.request((req, resp))
-#     assert resp.status == 200
-#     data = json.loads(resp.raw)
-#     assert all([r["has_window"] == True for r in data])

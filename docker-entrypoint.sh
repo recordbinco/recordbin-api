@@ -13,7 +13,7 @@ if [ $DJANGO_DEBUG -eq "1" ]; then
     echo ">>> DJANGO DEBUG is 1"
     echo ">>> Create admin user + token if debugging"
     echo ">>> running migrations"
-
+    python manage.py migrate # Load Seed Data
     echo ">>> seeding database"
     python manage.py seed # Load Seed Data
     echo ">>> starting Dev Server on 0.0.0.0:$PORT"
