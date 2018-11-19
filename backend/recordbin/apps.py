@@ -6,4 +6,3 @@ class RecordBinConfig(AppConfig):
 
     def ready(self):
         from .signals import create_auth_token
-

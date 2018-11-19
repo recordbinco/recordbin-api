@@ -62,4 +62,3 @@ tablea_urlpatterns = [
     path("connector/json/StandardConnectionsTableInfoData.json", table_info),
     path("connector/json/StandardConnectionsData.json", connection_data),
 ]
-
