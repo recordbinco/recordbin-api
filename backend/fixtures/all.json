@@ -1,5 +1,37 @@
 [
   {
+    "model": "recordbin.record",
+    "pk": "01baf783-c07a-48a8-9f02-9fabb6f08d67",
+    "fields": {
+      "data": {
+        "result": 1,
+        "username": "gtalarico"
+      },
+      "created_on": "2018-11-17T19:39:25.524Z",
+      "source": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+    }
+  },
+  {
+    "model": "recordbin.record",
+    "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
+    "fields": {
+      "data": {
+        "result": 0,
+        "username": "jfriedman"
+      },
+      "created_on": "2018-11-17T19:39:45.275Z",
+      "source": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+    }
+  },
+  {
+    "model": "recordbin.sourcetoken",
+    "pk": "84d2dbf92ddf8263605c01dc51466ee0725646b4",
+    "fields": {
+      "created_on": "2018-11-19T23:22:30.450Z",
+      "source": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+    }
+  },
+  {
     "model": "auth.user",
     "pk": 1,
     "fields": {
@@ -18,27 +50,12 @@
     }
   },
   {
-    "model": "recordbin.record",
-    "pk": "01baf783-c07a-48a8-9f02-9fabb6f08d67",
+    "model": "recordbin.source",
+    "pk": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
     "fields": {
-      "data": {
-        "result": 1,
-        "username": "gtalarico"
-      },
-      "created_on": "2018-11-17T19:39:25.524Z",
-      "user": ["admin"]
-    }
-  },
-  {
-    "model": "recordbin.record",
-    "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
-    "fields": {
-      "data": {
-        "result": 0,
-        "username": "jfriedman"
-      },
-      "created_on": "2018-11-17T19:39:45.275Z",
-      "user": ["admin"]
+      "name": "pyRevit",
+      "created_on": "2018-11-19T19:43:48.825Z",
+      "owner": ["admin"]
     }
   }
 ]

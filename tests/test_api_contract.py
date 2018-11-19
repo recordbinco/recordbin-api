@@ -5,12 +5,17 @@ import json
 from pyswagger import App, Security
 from pyswagger.contrib.client.requests import Client
 from django.conf import settings
-from rest_framework.authtoken.models import Token
+from backend.recordbin.models import SourceToken
 
 # FIXTURE_UNIT_MIX_ID = "3da7b9f6-1462-4647-8f03-e825ced535be"
 # FIXTURE_DISTRIBUTION_ID = "8c6eacb6-bf15-4e05-adef-242c7313e2e4"
 
-operation_list = [("api_v1_records_list", {}), ("api_v1_records_create", {})]
+operation_list = [
+    ("api_v1_records_list", {}),
+    ("api_v1_records_create", {}),
+    ("api_v1_sources_list", {}),
+    ("api_v1_tokens_list", {}),
+]
 
 
 @pytest.fixture(scope="session")
@@ -31,7 +36,7 @@ def test_all_operations_tested(app):
 @pytest.fixture
 def auth(app):
     auth = Security(app)
-    token = Token.objects.first()
+    token = SourceToken.objects.first()
     auth.update_with("APIKeyHeader", f"Token {token.key}")
     return auth
 

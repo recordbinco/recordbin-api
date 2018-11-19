@@ -1,19 +1,14 @@
 # # https://pytest-django.readthedocs.io/en/latest/helpers.html#client-django-test-client
 import pytest
-from rest_framework.test import APIRequestFactory, force_authenticate
 from rest_framework.test import APIClient
 
-from rest_framework.authtoken.models import Token
+from backend.recordbin.models import SourceToken
 
 
 @pytest.mark.django_db
 @pytest.fixture
-def token():
-    return Token.objects.first()
-
-
-@pytest.fixture
-def authenticated_client(client, token):
+def authenticated_client(client):
+    token = SourceToken.objects.first()
     client = APIClient()
     client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
     return client
@@ -26,7 +21,7 @@ def test_api_view_unauthorized(client):
 
 
 @pytest.mark.django_db
-def test_api_view(authenticated_client):
+def test_api_view_authorized(authenticated_client):
     response = authenticated_client.get("/api/v1/")
     assert response.status_code == 200
 
@@ -37,13 +32,14 @@ def test_api_admin(client):
     assert response.status_code in (200, 302)
 
 
-def test_openapi(authenticated_client):
+@pytest.mark.django_db
+def test_openapi_spec(authenticated_client):
     response = authenticated_client.get("/openapi.yaml")
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_openapi(authenticated_client, client):
+def test_docs(authenticated_client, client):
     # requires collectstatic
     response = authenticated_client.get("/redoc/")
     assert response.status_code == 200

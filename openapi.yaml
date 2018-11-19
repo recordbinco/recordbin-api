@@ -58,6 +58,34 @@ paths:
             $ref: "#/definitions/Record"
       tags:
         - api
+  /sources/:
+    get:
+      operationId: api_v1_sources_list
+      description: Return a list of Record Sources.
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Source"
+      tags:
+        - api
+      parameters: []
+  /tokens/:
+    get:
+      operationId: api_v1_tokens_list
+      description: Return a list of Record Source Tokens.
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/SourceToken"
+      tags:
+        - api
+      parameters: []
 definitions:
   Record:
     required:
@@ -76,5 +104,50 @@ definitions:
         readOnly: true
       data:
         title: Data
-        type: object
+        type: string
+      source:
+        title: Source
+        type: string
+        readOnly: true
+  Source:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: Id
+        type: string
+        format: uuid
+        readOnly: true
+      created_on:
+        title: Created on
+        type: string
+        format: date-time
+        readOnly: true
+      name:
+        title: Name
+        type: string
+        maxLength: 200
         minLength: 1
+      owner:
+        title: Owner
+        type: string
+        readOnly: true
+  SourceToken:
+    required:
+      - source
+    type: object
+    properties:
+      key:
+        title: Key
+        type: string
+        readOnly: true
+        minLength: 1
+      created_on:
+        title: Created on
+        type: string
+        format: date-time
+        readOnly: true
+      source:
+        title: Source
+        type: string
