@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
