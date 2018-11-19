@@ -13,13 +13,13 @@
         display: none !important;
       }
       * {
-        padding: 0px;
-        margin: 0px;
-        font-family: Arial, sans-serif;
-        color: #1c1c1c;
+        font-family: Helvetica, Arial, sans-serif;
+        color: #333;
       }
       body {
-        background-color: #f5f5f5;
+        padding: 5px;
+        margin: 0px;
+        background-color: #f9f9f9;
         text-align: center;
       }
     </style>
@@ -30,42 +30,39 @@
       type="text/javascript"
     ></script>
     <script>
-      // Example of Standard Connections in Web Data Connectors using JSONPlaceholder JSON endpoints
       // Tableau 10.1 - WDC API v2.1
-
       // Define our Web Data Connector
       ;(function() {
         var myConnector = tableau.makeConnector()
         myConnector.getSchema = function(schemaCallback) {
-          // Create a promise to get our Standard Connections List from a JSON file. This increases code readability since we
+            // Create a promise to get our Standard Connections List from a JSON file. This increases code readability since we
           // no longer need to define the lengthy object within our javascript itself.
           var standardConnections = new Promise(function(resolve, reject) {
-            loadJSON(
-              "StandardConnectionsData",
-              function(json) {
-                var obj = JSON.parse(json)
+            getJson(
+              "/connector/connectiondata.json",
+              function(data) {
+                var obj = data
                 var connectionList = []
                 for (var connection in obj.connections) {
                   connectionList.push(obj.connections[connection])
                 }
                 resolve(connectionList)
-              },
-              true
+              }
             )
           })
+
           // Create a promise to get our table schema info as well, just like above
           var tables = new Promise(function(resolve, reject) {
-            loadJSON(
-              "StandardConnectionsTableInfoData",
-              function(json) {
-                var obj = JSON.parse(json)
+            getJson(
+              "/connector/tableinfo.json",
+              function(data) {
+                var obj = data
                 var tableList = []
                 for (var table in obj.tables) {
                   tableList.push(obj.tables[table])
                 }
                 resolve(tableList)
-              },
-              true
+              }
             )
           })
           // Once all our promises are resolved, we can call the schemaCallback to send this info to Tableau
@@ -77,8 +74,9 @@
         myConnector.getData = function(table, doneCallback) {
           // Load our data from the API. Multiple tables for WDC work by calling getData multiple times with a different id
           // so we want to make sure we are getting the correct table data per getData call
-          loadJSON(table.tableInfo.id, function(data) {
-            var obj = JSON.parse(data)
+          var urlPath = '/api/v1/' + table.tableInfo.id + '/'
+          getJson(urlPath, function(data) {
+            var obj = data
             var tableData = []
             // Iterate through the data and build our table
             for (var i = 0; i < obj.length; i++) {
@@ -124,11 +122,7 @@
             document.getElementById("token-form").classList.add("hide")
           }
           if (tableau.phase == tableau.phaseEnum.gatherDataPhase) {
-            // If API that WDC is using has an enpoint that checks
-            // the validity of an access token, that could be used here.
-            // Then the WDC can call tableau.abortForAuth if that access token
-            // is invalid.
-
+            // Checks  validity of token-  call tableau.abortForAuth if token is invalid.
             axios
               .get("/api/v1/records/?token=" + tableau.password)
               .then(function(response) {
@@ -145,26 +139,19 @@
       })()
 
       // Helper function that loads a json and a callback to call once that file is loaded
-      function loadJSON(path, cb, isLocal) {
-        var obj = new XMLHttpRequest()
-        obj.overrideMimeType("application/json")
-        if (isLocal) {
-          obj.open("GET", "/connector/json/" + path + ".json", true)
-        } else {
-          // var token = prompt("Enter the authorization token:")
-          var token = tableau.password
-          obj.open("GET", "/api/v1/" + path, true)
-          obj.setRequestHeader("Authorization", "Token " + token)
-        }
-        obj.onreadystatechange = function() {
-          if (obj.readyState == 4 && obj.status == "200") {
-            cb(obj.responseText)
+      function getJson(urlPath, callback) {
+        var headers = {'Content-type': 'application/json'}
+        if (tableau.password) { headers['Authorization'] = "Token " + tableau.password }
+        return axios.get(urlPath, { 'headers': headers }).then(function (response) {
+          if (response.status == 200) {
+            callback(response.data)
+          } else {
+            console.warn(response.error)
           }
-        }
-        obj.send(null)
+        })
       }
 
-      function send() {
+      function getData() {
         tableau.connectionName = "Record Bin - Records"
         tableau.submit()
       }
@@ -194,7 +181,7 @@
             <div class="card-body">
               <h5 class="card-title">Ready to Fetch</h5>
               <div class="card-text">
-                <a href="#" onclick="send()" class="btn btn-success"
+                <a href="#" onclick="getData()" class="btn btn-success"
                   >Get Data</a
                 >
               </div>
@@ -232,24 +219,6 @@
           </div>
         </div>
       </div>
-      <!--
-        <p>
-          Web Data Connector <br />for RecordBin Service
-          <a href="http://github.com/gtalarico/recordbin/">RecordBin Service</a>.
-        </p>
-        <div class="row"></div>
-      -->
-      <!---->
     </div>
-
-    <!--
-      <form id="getTokenForm">
-        <input type="text" id="token" placeholder="token" />
-        <button class="btn btn-primary" onclick="saveToken()">
-          Validate Token
-        </button>
-      </form>
-    -->
-    <!-- <button id="submitButton" onclick="send()">Get Data</button> -->
   </body>
 </html>

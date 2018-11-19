@@ -59,6 +59,6 @@ def table_info(request):
 
 tablea_urlpatterns = [
     path("connector/", connector),
-    path("connector/json/StandardConnectionsTableInfoData.json", table_info),
-    path("connector/json/StandardConnectionsData.json", connection_data),
+    path("connector/tableinfo.json", table_info),
+    path("connector/connectiondata.json", connection_data),
 ]
