@@ -1,0 +1,50 @@
+from django.urls import path, include
+from django.views.generic import TemplateView
+from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
+
+connector = never_cache(
+    xframe_options_exempt(TemplateView.as_view(template_name="connector.html"))
+)
+
+
+@xframe_options_exempt
+def connection_data(request):
+    data = {
+        "connections": [
+            {
+                "alias": "Record Bin",
+                "tables": [{"id": "records", "alias": "Records"}],
+                "joins": [],
+            }
+        ]
+    }
+    return JsonResponse(data)
+
+
+@xframe_options_exempt
+def table_info(request):
+    data = {
+        "tables": [
+            {
+                "id": "records",
+                "alias": "Records",
+                "columns": [
+                    {"id": "id", "alias": "id", "dataType": "string"},
+                    {"id": "created_on", "alias": "Created On", "dataType": "string"},
+                    {"id": "data", "alias": "Data", "dataType": "string"},
+                    # {"id": "user", "alias": "user", "dataType": "int"},
+                ],
+            }
+        ]
+    }
+    return JsonResponse(data)
+
+
+tablea_urlpatterns = [
+    path("connector/", connector),
+    path("connector/json/StandardConnectionsTableInfoData.json", table_info),
+    path("connector/json/StandardConnectionsData.json", connection_data),
+]
+

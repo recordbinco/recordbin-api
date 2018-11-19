@@ -11,6 +11,7 @@ from django.views.decorators.cache import never_cache
 from rest_framework import routers
 
 from .docs import doc_urlpatterns
+from .tableau_connector import tablea_urlpatterns
 from .recordbin.views import RecordViewSet
 
 index_view = never_cache(TemplateView.as_view(template_name="index.html"))
@@ -22,5 +23,6 @@ urlpatterns = [
     path("api/v1/", include((router.urls, "records"), namespace="v1")),
     path("", admin.site.urls),
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
+    *tablea_urlpatterns,
     *doc_urlpatterns,
 ]
