@@ -45,4 +45,5 @@ class RecordViewSet(
             if match:
                 field = match.group(1)
                 filter_kwargs[f"data__{field}"] = value
+        filter_kwargs["user"] = self.request.auth.user
         return Record.objects.filter(**filter_kwargs)

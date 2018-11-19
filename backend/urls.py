@@ -9,6 +9,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 from .docs import doc_urlpatterns
 from .tableau_connector import tablea_urlpatterns
@@ -21,6 +22,7 @@ router.register("records", RecordViewSet)
 
 urlpatterns = [
     path("api/v1/", include((router.urls, "records"), namespace="v1")),
+    path("api/v1/token/", obtain_auth_token),
     path("", admin.site.urls),
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
     *tablea_urlpatterns,
