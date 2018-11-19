@@ -30,10 +30,13 @@ class Record(models.Model):
 
 class RecordSerializer(serializers.ModelSerializer):
     data = serializers.JSONField()
+    user = serializers.SlugRelatedField(
+        many=False, read_only=True, slug_field="username"
+    )
 
     class Meta:
         model = Record
-        fields = ("id", "created_on", "data")
+        fields = ("id", "created_on", "data", "user")
 
     def create(self, validated_data):
         """ Override create to ensure received data is stored in data field """
