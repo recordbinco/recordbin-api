@@ -109,8 +109,9 @@
           })
         }
         myConnector.init = function(initCallback) {
-          tableau.authType = tableau.authTypeEnum.custom
+          document.getElementById("tableau-not-init").classList.add("hide")
 
+          tableau.authType = tableau.authTypeEnum.custom
           tableau.log("Phase is: " + tableau.phase)
           console.log("Phase is: " + tableau.phase)
           if (tableau.phase == tableau.phaseEnum.authPhase) {
@@ -182,11 +183,13 @@
     />
   </head>
   <body>
-    <div class="container">
+    <div class="container text-center">
       <div class="row">
         <div class="col-sm mt-5">
-          <h2>RecordBin Web Data Connector</h2>
+          <h2>RecordBin JSON Web Data Connector</h2>
+          <p>Use this connector to connect Tableau directly to this RecordBin API</p>
 
+          <p id="tableau-not-init" class="text-danger">Tableau has not been initialized yet.<br>This page can only be called from Tableau Desktop or by the WDC <a href="http://tableau.github.io/webdataconnector/Simulator/">Simulator</a></p>
           <div class="card w-100 mt-5 hide" id="fetch-form">
             <div class="card-body">
               <h5 class="card-title">Ready to Fetch</h5>

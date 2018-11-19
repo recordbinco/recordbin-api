@@ -33,7 +33,11 @@ FROM records_record
 
 ## Tableau Web Connector
 
-Create a Web Connector datasource and point it to `http://ww-recordbin.herokuapp.com/connector/`
+Create a Web Connector datasource and point it to `http://ww-recordbin.herokuapp.com/connector/`.
+You can use [this simmulator](http://tableau.github.io/webdataconnector/Simulator/) to ensure the connector is working properly.
+
+### Accessing Data
+
 To access a json field, create calculated fields using regex expressions:
 
 #### Text Value
