@@ -49,7 +49,7 @@ def table_info(request):
                         "dataType": "string",
                         "description": "Record Data",
                     },
-                    # {"id": "user", "alias": "user", "dataType": "int"},
+                    {"id": "user", "alias": "Username", "dataType": "string"},
                 ],
             }
         ]
