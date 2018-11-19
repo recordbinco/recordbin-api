@@ -23,9 +23,27 @@ $ git clone git@github.com:gtalarico/recordbin.git
 $ cd recordbin
 ```
 
-### Docker
+### Local Server - Non-Docker
 
-- Run Local Server
+#### Requirements
+
+- pipenv
+- postgres
+- python 3+
+
+```
+$ pipenv install --dev
+$ createdb recordbindb
+$ set  DATABASE_URL="postgres://postgres:postgres@localhost:5432/recordbindb"
+$ python manage.py migrate
+$ python manage.py runserver
+```
+
+### Local Server - Docker
+
+#### Requirements
+
+- docker
 
 ```
 $ docker-compose up db -d
@@ -63,12 +81,19 @@ heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com
 heroku config:set DJANGO_DEBUG=0
 ```
 
-### Push and Release Code
+### Push and Release Code (Container)
 
 ```
 heroku container:login
 heroku container:push web
 heroku container:release web
+```
+
+### Push and Release Code (Legacy)
+
+```
+heroku git:remote
+git push heroku
 ```
 
 ### Create Super User
@@ -87,10 +112,9 @@ docker-compose run tests
 
 ## TODO
 
-- [ ] Change Schema to receive {"data": }
-- [ ] Add Pagination
-- [ ] Add instructions for querying / retrieving data
+- [ ] Change Schema to receive {"data": } ?
 - [ ] Add Auth Docs
-- [ ] Add CSV/Json endpoint
+- [x] Add instructions for querying / retrieving data
+- [x] Add Tableau Json endpoint
 - [x] Add Auth
 - [x] Fix Tests (test db config - sqlite not working because of json field)
