@@ -9,6 +9,7 @@
       functionality to the built in Tableau WDC browser (it does not have ES6 functionality by default)
     -->
     <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script
       src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"
       type="text/javascript"
@@ -91,6 +92,10 @@
             doneCallback()
           })
         }
+        // myConnector.init = function(initCallback) {
+        //   tableau.authType = tableau.authTypeEnum.basic
+        //   initCallback()
+        // }
         tableau.registerConnector(myConnector)
       })()
 

@@ -31,9 +31,24 @@ def table_info(request):
                 "id": "records",
                 "alias": "Records",
                 "columns": [
-                    {"id": "id", "alias": "id", "dataType": "string"},
-                    {"id": "created_on", "alias": "Created On", "dataType": "string"},
-                    {"id": "data", "alias": "Data", "dataType": "string"},
+                    {
+                        "id": "id",
+                        "alias": "id",
+                        "dataType": "string",
+                        "description": "Record Id",
+                    },
+                    {
+                        "id": "created_on",
+                        "alias": "Created On",
+                        "dataType": "string",
+                        "description": "Record Timestamp",
+                    },
+                    {
+                        "id": "data",
+                        "alias": "Data",
+                        "dataType": "string",
+                        "description": "Record Data",
+                    },
                     # {"id": "user", "alias": "user", "dataType": "int"},
                 ],
             }
