@@ -112,10 +112,9 @@ docker-compose run tests
 
 ## TODO
 
-- [ ] Change Schema to receive {"data": }
-- [ ] Add Pagination
-- [ ] Add instructions for querying / retrieving data
+- [ ] Change Schema to receive {"data": } ?
 - [ ] Add Auth Docs
-- [ ] Add CSV/Json endpoint
+- [x] Add instructions for querying / retrieving data
+- [x] Add Tableau Json endpoint
 - [x] Add Auth
 - [x] Fix Tests (test db config - sqlite not working because of json field)
