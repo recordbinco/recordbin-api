@@ -68,6 +68,12 @@ allowing you to perform tasks with `python manage.py` freely.
 $ docker-compose run web bash
 ```
 
+- Inspect DB
+
+```
+$ psql -p 5433 -U postgres -d recordbindb -h 0.0.0.0
+```
+
 ## Heroku Deployment
 
 ### Setup App
@@ -107,13 +113,16 @@ Note: In development mode (see section above), dev server will include an admin 
 # Tests
 
 ```
-docker-compose run tests
+$ docker-compose run tests
+# or
+$ docker-compose run tests bash
+$ pytest
 ```
 
-## TODO
+# Todo
 
 - [ ] Change Schema to receive {"data": } ?
-- [ ] Add Auth Docs
+- [x] Disconnect Token from User
 - [x] Add instructions for querying / retrieving data
 - [x] Add Tableau Json endpoint
 - [x] Add Auth

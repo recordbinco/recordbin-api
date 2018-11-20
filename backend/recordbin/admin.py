@@ -2,30 +2,30 @@
 # https://docs.djangoproject.com/en/dev/ref/contrib/admin/#inlinemodeladmin-objects
 from django.contrib import admin
 
-# from django.utils.html import format_html
-# from django.urls import reverse
+from django.utils.html import format_html
+from django.urls import reverse
 
-from .models import Record
+from .models import Record, Source, SourceToken
 
 
-# def linkify(field_name):
-#     """
-#     Converts a foreign key value into clickable links.
+def linkify(field_name):
+    """
+    Converts a foreign key value into clickable links.
 
-#     If field_name is 'parent', link text will be str(obj.parent)
-#     Link will be admin url for the admin url for obj.parent.id:change
-#     """
-#     # docs.djangoproject.com/en/2.1/ref/contrib/admin/#reversing-admin-urls
-#     def _linkify(obj):
-#         app_label = obj._meta.app_label
-#         linked_obj = getattr(obj, field_name)
-#         model_name = linked_obj._meta.model_name
-#         view_name = f"admin:{app_label}_{model_name}_change"
-#         link_url = reverse(view_name, args=[str(linked_obj.id)])
-#         return format_html('<a href="{}">{}</a>', link_url, linked_obj)
+    If field_name is 'parent', link text will be str(obj.parent)
+    Link will be admin url for the admin url for obj.parent.id:change
+    """
+    # docs.djangoproject.com/en/2.1/ref/contrib/admin/#reversing-admin-urls
+    def _linkify(obj):
+        app_label = obj._meta.app_label
+        linked_obj = getattr(obj, field_name)
+        model_name = linked_obj._meta.model_name
+        view_name = f"admin:{app_label}_{model_name}_change"
+        link_url = reverse(view_name, args=[str(linked_obj.id)])
+        return format_html('<a href="{}">{}</a>', link_url, linked_obj)
 
-#     _linkify.short_description = field_name
-#     return _linkify
+    _linkify.short_description = field_name
+    return _linkify
 
 
 class BaseModel(admin.ModelAdmin):
@@ -35,11 +35,32 @@ class BaseModel(admin.ModelAdmin):
         return f"{str(obj.id).split('-')[0]}"
 
 
-# class SpaceTypeSkuInstanceInline(admin.TabularInline):
-#     model = SpaceTypeSkuInstance
-
-
 @admin.register(Record)
 class RecordAdmin(BaseModel):
-    list_display = ["short_id", "created_on"]
-    # list_filter = ["program_type__name"]
+    list_display = ["short_id", "created_on", linkify("source")]
+    list_filter = ["source__name"]
+
+
+class RecordInline(admin.TabularInline):
+    model = Record
+
+
+class SourceTokenInline(admin.TabularInline):
+    model = SourceToken
+
+
+@admin.register(Source)
+class SourceAdmin(BaseModel):
+    list_display = ["short_id", "created_on", "owner", "name", "records", "tokens"]
+    inlines = [RecordInline, SourceTokenInline]
+
+    def records(self, obj):
+        return len(obj.records.all())
+
+    def tokens(self, obj):
+        return len(obj.tokens.all())
+
+
+@admin.register(SourceToken)
+class SourceTokenAdmin(BaseModel):
+    list_display = ["key", "created_on", linkify("source")]

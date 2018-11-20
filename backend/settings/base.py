@@ -32,12 +32,11 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",  # < Per Whitenoise, to disable built in
     "django.contrib.staticfiles",
     "rest_framework",
-    "rest_framework.authtoken",
+    # "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
     "backend.core",
     "backend.recordbin",
-    # "backend.recordbin.apps.RecordBinConfig",
 ]
 
 MIDDLEWARE = [
@@ -107,7 +106,7 @@ REST_FRAMEWORK = {
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "backend.core.auth.TokenAuthenticationWithUrlSupport",
+        "backend.recordbin.auth.TokenAuthenticationWithUrlSupport",
         "rest_framework.authentication.SessionAuthentication",
     ),
     # Disables api admin view
@@ -123,8 +122,11 @@ JET_DEFAULT_THEME = "default"
 JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_ITEMS = [
     {"app_label": "auth", "items": [{"name": "group"}, {"name": "user"}]},
-    {"app_label": "authtoken", "items": [{"name": "token"}]},
-    {"app_label": "recordbin", "items": [{"name": "record"}]},
+    # {"app_label": "authtoken", "items": [{"name": "token"}]},
+    {
+        "app_label": "recordbin",
+        "items": [{"name": "record"}, {"name": "source"}, {"name": "sourcetoken"}],
+    },
     {
         "label": "Links",
         "items": [
