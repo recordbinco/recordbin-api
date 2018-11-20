@@ -1,13 +1,15 @@
-# Record Bin (WIP)
+# Record Bin
 
 Record Bin is flexible deployable API Service that can receive schemaless records for persistent storage.
 
 ### Example
 
 - [Admin Panel](http://ww-recordbin.herokuapp.com/) (admin:admin)
-- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)
-- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)
-- Sample Request
+- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)*
+- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)*
+*Must login Admin panel first to authenticate
+
+### Sample Request
 
 ```
 curl -H "Content-Type: application/json" -H "Authorization: Token <token>" \
@@ -15,6 +17,10 @@ curl -H "Content-Type: application/json" -H "Authorization: Token <token>" \
      --data '{"username":"xyz","result":0, "action": "deleted"}' \
      http://ww-recordbin.herokuapp.com/api/v1/records/
 ```
+
+## Querying
+
+More on querying RecordBin Data [here](https://github.com/gtalarico/recordbin/blob/master/QUERYING.md)
 
 ## Development Server
 
