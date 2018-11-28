@@ -1,15 +1,23 @@
 # Record Bin
 
+[![Build Status](https://travis-ci.org/gtalarico/recordbin-python.svg?branch=master)](https://travis-ci.org/gtalarico/recordbin-python)
+
+[![codecov](https://codecov.io/gh/gtalarico/recordbin-python/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/recordbin-python)
+
+---
+
+![project-logo](https://github.com/gtalarico/recordbin/blob/master/art/logo.png)
+
 Record Bin is flexible deployable API Service that can receive schemaless records for persistent storage.
 
-### Example
+### Demo
 
 - [Admin Panel](http://ww-recordbin.herokuapp.com/) (admin:admin)
-- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)*
-- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)*
-*Must login Admin panel first to authenticate
+- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)\*
+- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)\*
+  \*Must login Admin panel first to authenticate
 
-### Sample Request
+### Sample Record Post Request
 
 ```
 curl -H "Content-Type: application/json" -H "Authorization: Token <token>" \
@@ -29,32 +37,13 @@ $ git clone git@github.com:gtalarico/recordbin.git
 $ cd recordbin
 ```
 
-### Local Server - Non-Docker
-
-#### Requirements
-
-- pipenv
-- postgres
-- python 3+
+### Local Server (Docker)
 
 ```
-$ pipenv install --dev
-$ createdb recordbindb
-$ set  DATABASE_URL="postgres://postgres:postgres@localhost:5432/recordbindb"
-$ python manage.py migrate
-$ python manage.py runserver
+$ make start
 ```
 
-### Local Server - Docker
-
-#### Requirements
-
-- docker
-
-```
-$ docker-compose up db -d
-$ docker-compose up web
-```
+For other useful commands use `$ make usage`
 
 ##### Development Mode
 
@@ -62,23 +51,8 @@ By default, the server will run as if in a Production enviroment:
 use Gunicorn and turn debugging off.
 
 To run a local server in Django Debug and use Django Dev server,
-set an environment varriable (`DJANGO_DEBUG=1`) or run
+set an environment variable (`DJANGO_DEBUG=1`) or run
 `env DJANGO_DEBUG=1 docker-compose up web`
-
-- Inspect / Manage
-
-This command will enter a bash enviroment inside your docker container,
-allowing you to perform tasks with `python manage.py` freely.
-
-```
-$ docker-compose run web bash
-```
-
-- Inspect DB
-
-```
-$ psql -p 5433 -U postgres -d recordbindb -h 0.0.0.0
-```
 
 ## Heroku Deployment
 
@@ -93,19 +67,12 @@ heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com
 heroku config:set DJANGO_DEBUG=0
 ```
 
-### Push and Release Code (Container)
+### Release
 
 ```
 heroku container:login
 heroku container:push web
 heroku container:release web
-```
-
-### Push and Release Code (Legacy)
-
-```
-heroku git:remote
-git push heroku
 ```
 
 ### Create Super User
@@ -114,7 +81,9 @@ git push heroku
 heroku run python manage.py createsuperuser
 ```
 
-Note: In development mode (see section above), dev server will include an admin user (username: admin, pwd: admin).
+Note: In Development Mode (see section above),
+the Development Server includes a seeded admin user
+(username: admin, pwd: admin).
 
 # Tests
 
@@ -128,6 +97,7 @@ $ pytest
 # Todo
 
 - [ ] Change Schema to receive {"data": } ?
+- [x] Package all commands in Makefile
 - [x] Disconnect Token from User
 - [x] Add instructions for querying / retrieving data
 - [x] Add Tableau Json endpoint

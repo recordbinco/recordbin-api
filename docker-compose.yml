@@ -6,7 +6,7 @@ x-web: &default-web
   restart: always
   build:
     context: .
-    dockerfile: Dockerfile.web
+    dockerfile: Dockerfile
   volumes:
     - .:/code
   ports:
@@ -34,18 +34,20 @@ services:
       - "5434:5432"
   web:
     <<: *default-web
-    container_name: django_server
+    container_name: recordbin-web
     depends_on:
       - db
   tests:
     <<: *default-web
-    container_name: django_server_test
+    container_name: recordbin-test
     command: >
-      bash -c "sleep 8 &&
+      bash -c "sleep 5 &&
       python manage.py migrate &&
       python manage.py seed &&
-      pytest -vs"
+      pytest -vs &&
+      exit"
     ports:
+      # Uses regular 8000 internally, maps to 8001 on host
       - "8001:8000"
     environment:
       - DJANGO_DEBUG=0

@@ -6,6 +6,8 @@ import django
 
 from django.core.management import call_command
 
+x = "asdsdsds"
+
 
 def pytest_configure():
     os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings"
