@@ -1,10 +1,8 @@
 # # https://pytest-django.readthedocs.io/en/latest/helpers.html#client-django-test-client
 import pytest
-import json
 
 from pyswagger import App, Security
 from pyswagger.contrib.client.requests import Client
-from django.conf import settings
 from backend.recordbin.models import SourceToken
 
 # FIXTURE_UNIT_MIX_ID = "3da7b9f6-1462-4647-8f03-e825ced535be"

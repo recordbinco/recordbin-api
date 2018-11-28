@@ -16,7 +16,7 @@ from .tableau_connector import tablea_urlpatterns
 from .recordbin.views import RecordViewSet, SourceViewSet, SourceTokenViewSet
 
 # TODO
-from rest_framework.authtoken.views import obtain_auth_token
+# from rest_framework.authtoken.views import obtain_auth_token
 
 # path("api/v1/token/", obtain_auth_token),
 
