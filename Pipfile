@@ -19,11 +19,10 @@ pyswagger = "*"
 python-decouple = "*"
 pytest-cov = "*"
 django-jet = "*"
+"flake8" = "*"
+black = "*"
 
 [dev-packages]
-"flake8" = "*"
-mypy = "*"
-black = "*"
 
 [requires]
 python_version = "3.7"
