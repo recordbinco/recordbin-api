@@ -96,8 +96,8 @@ $ pytest
 
 # Todo
 
-- [ ] Package all commands in Makefile
 - [ ] Change Schema to receive {"data": } ?
+- [x] Package all commands in Makefile
 - [x] Disconnect Token from User
 - [x] Add instructions for querying / retrieving data
 - [x] Add Tableau Json endpoint
