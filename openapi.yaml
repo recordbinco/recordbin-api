@@ -15,23 +15,34 @@ consumes:
 produces:
   - application/json
 securityDefinitions:
-  # X-API-Key: abcdef12345
-  APIKeyHeader:
-    type: apiKey
-    in: header
-    name: Authorization
   # /path?api_key=abcdef12345
-  APIKeyQueryParam:
+  SourceTokenParam:
     type: apiKey
     in: query
     name: token
+    description: "Source Token in request url param: `/records/?token=123`"
+  # Header {Authorization: Token 123...}
+  SourceTokenHeader:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'Source Token in request Authorization Header: `{ Authorization: "Token 123"}`'
+  # JWT Token
+  JwtToken:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'JWT Token in request Authorization Header: `{ Authorization: "JWT 123"}`'
 security:
-  - APIKeyHeader: []
+  - SourceTokenParam: []
+  - SourceTokenHeader: []
+  - JwtToken: []
 paths:
   /records/:
     get:
       operationId: api_v1_records_list
       description: Return a list of records.
+      security:
       parameters: []
       responses:
         "200":
@@ -86,6 +97,68 @@ paths:
       tags:
         - api
       parameters: []
+  /auth/token-new/:
+    post:
+      operationId: api_v1_auth_token-new_create
+      summary: API View that receives a POST with a user's username and password.
+      description: Returns a JSON Web Token that can be used for authenticated requests.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/JSONWebToken"
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: "#/definitions/JSONWebToken"
+      tags:
+        - api
+    parameters: []
+  /auth/token-refresh/:
+    post:
+      operationId: api_v1_auth_token-refresh_create
+      summary:
+        "API View that returns a refreshed token (with new expiration) based\
+        \ on\nexisting token"
+      description:
+        "If 'orig_iat' field (original issued-at-time) is found, will first\
+        \ check\nif it's within expiration window, then copy it to the new token"
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/RefreshJSONWebToken"
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: "#/definitions/RefreshJSONWebToken"
+      tags:
+        - api
+    parameters: []
+  /auth/token-verify/:
+    post:
+      operationId: api_v1_auth_token-verify_create
+      description:
+        "API View that checks the veracity of a token, returning the token\
+        \ if it\nis valid."
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/VerifyJSONWebToken"
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: "#/definitions/VerifyJSONWebToken"
+      tags:
+        - api
+    parameters: []
 definitions:
   Record:
     required:
@@ -151,3 +224,35 @@ definitions:
       source:
         title: Source
         type: string
+  JSONWebToken:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  RefreshJSONWebToken:
+    required:
+      - token
+    type: object
+    properties:
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  VerifyJSONWebToken:
+    required:
+      - token
+    type: object
+    properties:
+      token:
+        title: Token
+        type: string
+        minLength: 1

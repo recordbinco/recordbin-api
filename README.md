@@ -88,10 +88,8 @@ the Development Server includes a seeded admin user
 # Tests
 
 ```
-$ docker-compose run tests
-# or
-$ docker-compose run tests bash
-$ pytest
+$ make tests
+$ make testsbash
 ```
 
 # Todo

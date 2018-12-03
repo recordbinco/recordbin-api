@@ -26,8 +26,7 @@ class RecordViewSet(
     """
 
     # Added Globally on `settings/base.py`
-    # authentication_classes = (TokenAuthenticationWithUrlSupport,)
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     queryset = Record.objects.all()
     serializer_class = RecordSerializer
@@ -41,20 +40,32 @@ class RecordViewSet(
     def get_queryset(self):
         params = self.request.query_params.copy()
         filter_kwargs = {}
+
+        # Extend filtering to allow Filtering ?data[field]=value
+        # DjangoFilterBackend allows direct attribute filtering
         for key, value in params.items():
             pat = r"data\[(\w+)\]"
             match = re.search(pat, key)
             if match:
                 field = match.group(1)
                 filter_kwargs[f"data__{field}"] = value
+
+        # Authentication
+        user = self.request.user  # logged in user or annon
         token = self.request.auth
-        if token:
+        if isinstance(token, SourceToken):
+            # TokenAuthentication: Filter Records by SourceToken__source
             source = token.source
             filter_kwargs["source"] = source
-        elif not token and self.request.user.is_authenticated:
-            # Session Authenticatio from API View, no Token
-            filter_kwargs["source__owner"] = self.request.user
+        elif isinstance(token, bytes):
+            # Is JWT Token
+            filter_kwargs["source__owner"] = user
+        elif not token and user.is_authenticated and user.is_staff:
+            # SessionAuthentication: Admin session cookie (used by api/v1/ and docs)
+            # No Filters
+            pass
         else:
+            # Not sure who this is return nothing
             return Record.objects.none()
         return Record.objects.filter(**filter_kwargs)
 

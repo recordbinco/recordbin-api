@@ -18,6 +18,11 @@ start:
 stop:
 	docker-compose down
 
+## rebuild: rebuilds container
+rebuild:
+	docker stop recordbin-web
+	docker-compose up -d --build web
+
 ## restart: stops and starts all services
 restart:
 	stop & start
@@ -45,11 +50,12 @@ stopall:
 ## tests: run test suite (alows pdb and breakpoint)
 tests:
 	docker-compose run --service-ports --rm tests
+	docker stop recordbin-web
 	docker stop postgres_test_db
 
-## inspecttests: runs bash inside test container for easier test troubleshooting
-inspecttests:
-	docker-compose up -d tests
+## testsbash: runs bash inside test container for easier test troubleshooting
+testsbash:
+	docker-compose up -d --build tests
 	docker exec -it recordbin-test bash
 
 ## format: Format code using black
@@ -63,3 +69,7 @@ lint:
 ## ci: run test suite
 requirements:
 	pipenv lock --requirements > requirements.txt
+
+clean:
+	python3 -c "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.py[co]')]"
+	python3 -c "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__pycache__')]"

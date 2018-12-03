@@ -5,14 +5,28 @@ from pyswagger import App, Security
 from pyswagger.contrib.client.requests import Client
 from backend.recordbin.models import SourceToken
 
-# FIXTURE_UNIT_MIX_ID = "3da7b9f6-1462-4647-8f03-e825ced535be"
-# FIXTURE_DISTRIBUTION_ID = "8c6eacb6-bf15-4e05-adef-242c7313e2e4"
+
+# ADMIN_CREDENTIALS = dict(data=dict(admin="admin", password="admin"))
+
+
+@pytest.fixture
+def ADMIN_PAYLOAD(ADMIN_CREDENTIALS):
+    return {"data": ADMIN_CREDENTIALS}
+
+
+@pytest.fixture
+def JWT_PAYLOAD(JWT_TOKEN):
+    return {"data": {"token": JWT_TOKEN}}
+
 
 operation_list = [
     ("api_v1_records_list", {}),
     ("api_v1_records_create", {}),
     ("api_v1_sources_list", {}),
     ("api_v1_tokens_list", {}),
+    ("api_v1_auth_token-new_create", pytest.lazy_fixture("ADMIN_PAYLOAD")),
+    ("api_v1_auth_token-refresh_create", pytest.lazy_fixture("JWT_PAYLOAD")),
+    ("api_v1_auth_token-verify_create", pytest.lazy_fixture("JWT_PAYLOAD")),
 ]
 
 
@@ -35,7 +49,7 @@ def test_all_operations_tested(app):
 def auth(app):
     auth = Security(app)
     token = SourceToken.objects.first()
-    auth.update_with("APIKeyHeader", f"Token {token.key}")
+    auth.update_with("SourceTokenHeader", f"Token {token.key}")
     return auth
 
 
@@ -46,5 +60,4 @@ def test_contracts(app, auth, operation_name, kwargs):
     req, resp = app.op[operation_name](**kwargs)
     resp = client.request((req, resp))
     assert resp.status in (200, 201)
-    if resp.status == 200:
-        assert resp.data
+

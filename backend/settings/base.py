@@ -58,7 +58,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        # "DIRS": [],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -97,6 +97,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+# LOGIN_URL = '/api/v1/login/'
+
 # RestFramework
 # https://www.django-rest-framework.org/
 REST_FRAMEWORK = {
@@ -106,11 +108,17 @@ REST_FRAMEWORK = {
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "backend.recordbin.auth.TokenAuthenticationWithUrlSupport",
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "backend.recordbin.token.TokenAuthenticationWithUrlSupport",
     ),
     # Disables api admin view
     # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+}
+
+# http://getblimp.github.io/django-rest-framework-jwt/
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
 }
 
 # Django Yasg + Redoc Settings

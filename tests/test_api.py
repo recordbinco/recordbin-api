@@ -17,7 +17,7 @@ def authenticated_client(client):
 @pytest.mark.django_db
 def test_api_view_unauthorized(client):
     response = client.get("/api/v1/")
-    assert response.status_code == 401
+    assert response.status_code == 403
 
 
 @pytest.mark.django_db
@@ -46,9 +46,9 @@ def test_docs(authenticated_client, client):
 
 
 @pytest.mark.django_db
-def test_openapi_auth(client):
+def test_docs_unauthorized(client):
     response = client.get("/redoc/")
-    assert response.status_code == 401
+    assert response.status_code == 403
 
 
 def test_wsgi():
@@ -60,4 +60,4 @@ def test_wsgi():
 @pytest.mark.django_db
 def test_unauthorized(client):
     response = client.get("/api/v1/records/")
-    assert response.status_code == 401
+    assert response.status_code == 403

@@ -13,7 +13,7 @@ dj-database-url = "*"
 jsonfield = "*"
 django-filter = "*"
 pytest = "*"
-drf-yasg = {extras = ["validation"], version = "*"}
+drf-yasg = {extras = ["validation"],version = "*"}
 pytest-django = "*"
 pyswagger = "*"
 python-decouple = "*"
@@ -21,6 +21,8 @@ pytest-cov = "*"
 django-jet = "*"
 "flake8" = "*"
 black = "*"
+djangorestframework-jwt = "*"
+pytest-lazy-fixture = "*"
 
 [dev-packages]
 
