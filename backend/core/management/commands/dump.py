@@ -11,7 +11,7 @@ class Command(BaseCommand):
         args = [
             "dumpdata",
             "recordbin",
-            # "authtoken",
+            "authtoken",
             "auth.user",
             "--natural-foreign",
             "--indent=1",

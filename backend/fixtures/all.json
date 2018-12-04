@@ -25,54 +25,6 @@
   },
   {
     "model": "recordbin.record",
-    "pk": "3b872f2a-e759-4b2c-94f2-ac3be5fb7d34",
-    "fields": {
-      "data": {
-        "result": 1,
-        "username": "jonatan"
-      },
-      "created_on": "2018-12-04T21:05:27.964Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
-  },
-  {
-    "model": "recordbin.record",
-    "pk": "4dd4a05c-9204-4461-8a9e-e9032ae14cee",
-    "fields": {
-      "data": {
-        "result": 1,
-        "username": "jonatan"
-      },
-      "created_on": "2018-12-04T20:52:55.859Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
-  },
-  {
-    "model": "recordbin.record",
-    "pk": "7ef1a860-a40b-49e3-9f28-9452caab2308",
-    "fields": {
-      "data": {
-        "result": 1,
-        "username": "jonatan"
-      },
-      "created_on": "2018-12-04T21:03:17.055Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
-  },
-  {
-    "model": "recordbin.record",
-    "pk": "8aa3aec1-3adb-476a-ae0f-f76e31a0b235",
-    "fields": {
-      "data": {
-        "result": 1,
-        "username": "jonatan"
-      },
-      "created_on": "2018-12-04T20:53:47.982Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
-  },
-  {
-    "model": "recordbin.record",
     "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
     "fields": {
       "data": {
@@ -89,7 +41,7 @@
     "fields": {
       "created_on": "2018-11-19T23:22:30.450Z",
       "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
-      "permissions": "RW"
+      "permissions": "W"
     }
   },
   {
@@ -108,6 +60,14 @@
       "date_joined": "2018-11-17T19:37:59.605Z",
       "groups": [],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "7d2b7f39a7d290fda92fd56d1526fa150bacfaea",
+    "fields": {
+      "user": ["admin"],
+      "created": "2018-12-04T22:36:33.743Z"
     }
   },
   {
