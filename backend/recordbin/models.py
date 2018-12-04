@@ -85,6 +85,12 @@ class SourceToken(models.Model):
     key = models.CharField("Key", max_length=40, primary_key=True, editable=False)
     created_on = models.DateTimeField(auto_now_add=True)
     source = models.ForeignKey(Source, related_name="tokens", on_delete=models.CASCADE)
+    # permission_choices = (
+    #     ('R', 'Read'),
+    #     ('W', 'Write'),
+    #     ('RW', 'Read and Write'),
+    # )
+    # permissions = models.CharField(max_length=2, choices=permission_choices)
 
     class Meta:
         verbose_name = "Source Token"

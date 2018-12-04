@@ -1,19 +1,27 @@
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
 from rest_framework import exceptions
-from .models import SourceToken
 
-# TODO REPLACE
-# https://github.com/davesque/django-rest-framework-simplejwt
+from backend.recordbin.models import SourceToken
 
-class TokenAuthenticationWithUrlSupport(TokenAuthentication):
-    """ Set as default for all calls """
 
+class UserTokenAuthentication(TokenAuthentication):
     keyword = "Token"
+    model = Token
+
+
+class SourceTokennAuthentication(TokenAuthentication):
+    """
+    Similar to Token, but users SourceToken as model (belongs to Source not users)
+    and accepts url param token
+    """
+
+    keyword = "SourceToken"
     model = SourceToken
 
     def authenticate(self, request):
         """ Override TokenAuthentication.authenticate to support url query param"""
-        token = request.query_params.get("token")
+        token = request.query_params.get("source")
         if token:
             return self.authenticate_credentials(token)
         return super().authenticate(request)

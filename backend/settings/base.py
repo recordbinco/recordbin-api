@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",  # < Per Whitenoise, to disable built in
     "django.contrib.staticfiles",
     "rest_framework",
-    # "rest_framework.authtoken",
+    "rest_framework.authtoken",
+    "djoser",
     "django_filters",
     "drf_yasg",
     "backend.core",
@@ -103,17 +104,23 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
-        "backend.recordbin.auth.TokenAuthenticationWithUrlSupport",
+        "backend.core.auth.UserTokenAuthentication",
+        "backend.core.auth.SourceTokennAuthentication",
+        # "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        # "rest_framework.authentication.TokenAuthentication",
     ),
     # Uncomment to disables drf api views
     # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
-# http://getblimp.github.io/django-rest-framework-jwt/
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
+# https://djoser.readthedocs.io/en/stable/settings.html#token-model
+DJOSER = {
+    "TOKEN_MODEL": "rest_framework.authtoken.models.Token"
+    # "TOKEN_MODEL": "backend.recordbin.models.SourceToken"
 }
+
+# http://getblimp.github.io/django-rest-framework-jwt/
+# JWT_AUTH = {"JWT_ALLOW_REFRESH": True}
 
 # Django Yasg + Redoc Settings
 # https://drf-yasg.readthedocs.io/en/stable/settings.html

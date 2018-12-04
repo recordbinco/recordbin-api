@@ -1,6 +1,7 @@
 import re
 from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.authtoken.models import Token
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
@@ -40,7 +41,6 @@ class RecordViewSet(
     def get_queryset(self):
         params = self.request.query_params.copy()
         filter_kwargs = {}
-
         # Extend filtering to allow Filtering ?data[field]=value
         # DjangoFilterBackend allows direct attribute filtering
         for key, value in params.items():
@@ -57,8 +57,8 @@ class RecordViewSet(
             # TokenAuthentication: Filter Records by SourceToken__source
             source = token.source
             filter_kwargs["source"] = source
-        elif isinstance(token, bytes):
-            # Is JWT Token
+        elif isinstance(token, Token):
+            user = token.user
             filter_kwargs["source__owner"] = user
         elif not token and user.is_authenticated and user.is_staff:
             # SessionAuthentication: Admin session cookie (used by api/v1/ and docs)

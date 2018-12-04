@@ -23,6 +23,7 @@ django-jet = "*"
 black = "*"
 djangorestframework-jwt = "*"
 pytest-lazy-fixture = "*"
+djoser = "*"
 
 [dev-packages]
 

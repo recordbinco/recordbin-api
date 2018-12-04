@@ -19,20 +19,20 @@ securityDefinitions:
   SourceTokenParam:
     type: apiKey
     in: query
-    name: token
+    name: source
     description: "Source Token in request url param: `/records/?token=123`"
   # Header {Authorization: Token 123...}
   SourceTokenHeader:
     type: apiKey
     in: header
     name: Authorization
-    description: 'Source Token in request Authorization Header: `{ Authorization: "Token 123"}`'
+    description: 'Source Token in request Authorization Header: `{ Authorization: "SourceToken 123"}`'
   # JWT Token
-  JwtToken:
+  UserToken:
     type: apiKey
     in: header
     name: Authorization
-    description: 'JWT Token in request Authorization Header: `{ Authorization: "JWT 123"}`'
+    description: 'JWT Token in request Authorization Header: `{ Authorization: "Token 123"}`'
 security:
   - SourceTokenParam: []
   - SourceTokenHeader: []
