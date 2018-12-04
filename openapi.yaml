@@ -16,17 +16,17 @@ produces:
   - application/json
 securityDefinitions:
   # /path?api_key=abcdef12345
-  SourceTokenParam:
+  AppTokenParam:
     type: apiKey
     in: query
-    name: source
-    description: "Source Token in request url param: `/records/?token=123`"
+    name: app
+    description: "App Token in request url param: `/records/?token=123`"
   # Header {Authorization: Token 123...}
-  SourceTokenHeader:
+  AppTokenHeader:
     type: apiKey
     in: header
     name: Authorization
-    description: 'Source Token in request Authorization Header: `{ Authorization: "SourceToken 123"}`'
+    description: 'App Token in request Authorization Header: `{ Authorization: "AppToken 123"}`'
   # JWT Token
   UserToken:
     type: apiKey
@@ -34,15 +34,14 @@ securityDefinitions:
     name: Authorization
     description: 'JWT Token in request Authorization Header: `{ Authorization: "Token 123"}`'
 security:
-  - SourceTokenParam: []
-  - SourceTokenHeader: []
+  - AppTokenParam: []
+  - AppTokenHeader: []
   - JwtToken: []
 paths:
   /records/:
     get:
       operationId: api_v1_records_list
       description: Return a list of records.
-      security:
       parameters: []
       responses:
         "200":
@@ -69,96 +68,34 @@ paths:
             $ref: "#/definitions/Record"
       tags:
         - api
-  /sources/:
+  /apps/:
     get:
-      operationId: api_v1_sources_list
-      description: Return a list of Record Sources.
+      operationId: api_v1_apps_list
+      description: Return a list of Apps.
       responses:
         "200":
           description: ""
           schema:
             type: array
             items:
-              $ref: "#/definitions/Source"
+              $ref: "#/definitions/App"
       tags:
         - api
       parameters: []
-  /tokens/:
+  /apptokens/:
     get:
       operationId: api_v1_tokens_list
-      description: Return a list of Record Source Tokens.
+      description: Return a list of Record App Tokens.
       responses:
         "200":
           description: ""
           schema:
             type: array
             items:
-              $ref: "#/definitions/SourceToken"
+              $ref: "#/definitions/AppToken"
       tags:
         - api
       parameters: []
-  /auth/token-new/:
-    post:
-      operationId: api_v1_auth_token-new_create
-      summary: API View that receives a POST with a user's username and password.
-      description: Returns a JSON Web Token that can be used for authenticated requests.
-      parameters:
-        - name: data
-          in: body
-          required: true
-          schema:
-            $ref: "#/definitions/JSONWebToken"
-      responses:
-        "201":
-          description: ""
-          schema:
-            $ref: "#/definitions/JSONWebToken"
-      tags:
-        - api
-    parameters: []
-  /auth/token-refresh/:
-    post:
-      operationId: api_v1_auth_token-refresh_create
-      summary:
-        "API View that returns a refreshed token (with new expiration) based\
-        \ on\nexisting token"
-      description:
-        "If 'orig_iat' field (original issued-at-time) is found, will first\
-        \ check\nif it's within expiration window, then copy it to the new token"
-      parameters:
-        - name: data
-          in: body
-          required: true
-          schema:
-            $ref: "#/definitions/RefreshJSONWebToken"
-      responses:
-        "201":
-          description: ""
-          schema:
-            $ref: "#/definitions/RefreshJSONWebToken"
-      tags:
-        - api
-    parameters: []
-  /auth/token-verify/:
-    post:
-      operationId: api_v1_auth_token-verify_create
-      description:
-        "API View that checks the veracity of a token, returning the token\
-        \ if it\nis valid."
-      parameters:
-        - name: data
-          in: body
-          required: true
-          schema:
-            $ref: "#/definitions/VerifyJSONWebToken"
-      responses:
-        "201":
-          description: ""
-          schema:
-            $ref: "#/definitions/VerifyJSONWebToken"
-      tags:
-        - api
-    parameters: []
 definitions:
   Record:
     required:
@@ -178,11 +115,11 @@ definitions:
       data:
         title: Data
         type: string
-      source:
-        title: Source
+      app:
+        title: App
         type: string
         readOnly: true
-  Source:
+  App:
     required:
       - name
     type: object
@@ -206,9 +143,9 @@ definitions:
         title: Owner
         type: string
         readOnly: true
-  SourceToken:
+  AppToken:
     required:
-      - source
+      - app
     type: object
     properties:
       key:
@@ -221,8 +158,8 @@ definitions:
         type: string
         format: date-time
         readOnly: true
-      source:
-        title: Source
+      app:
+        title: App
         type: string
   JSONWebToken:
     required:

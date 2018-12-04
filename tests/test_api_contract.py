@@ -3,7 +3,7 @@ import pytest
 
 from pyswagger import App, Security
 from pyswagger.contrib.client.requests import Client
-from backend.recordbin.models import SourceToken
+from backend.recordbin.models import AppToken
 
 
 @pytest.fixture
@@ -11,19 +11,14 @@ def ADMIN_PAYLOAD(ADMIN_CREDENTIALS):
     return {"data": ADMIN_CREDENTIALS}
 
 
-@pytest.fixture
-def JWT_PAYLOAD(JWT_TOKEN):
-    return {"data": {"token": JWT_TOKEN}}
-
-
 operation_list = [
     ("api_v1_records_list", {}),
     ("api_v1_records_create", {}),
-    ("api_v1_sources_list", {}),
+    ("api_v1_apps_list", {}),
     ("api_v1_tokens_list", {}),
-    ("api_v1_auth_token-new_create", pytest.lazy_fixture("ADMIN_PAYLOAD")),
-    ("api_v1_auth_token-refresh_create", pytest.lazy_fixture("JWT_PAYLOAD")),
-    ("api_v1_auth_token-verify_create", pytest.lazy_fixture("JWT_PAYLOAD")),
+    # ("api_v1_auth_token-new_create", pytest.lazy_fixture("ADMIN_PAYLOAD")),
+    # ("api_v1_auth_token-refresh_create", pytest.lazy_fixture("JWT_PAYLOAD")),
+    # ("api_v1_auth_token-verify_create", pytest.lazy_fixture("JWT_PAYLOAD")),
 ]
 
 
@@ -45,8 +40,8 @@ def test_all_operations_tested(app):
 @pytest.fixture
 def auth(app):
     auth = Security(app)
-    token = SourceToken.objects.first()
-    auth.update_with("SourceTokenHeader", f"Token {token.key}")
+    token = AppToken.objects.first()
+    auth.update_with("AppTokenHeader", f"AppToken {token.key}")
     return auth
 
 

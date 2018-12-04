@@ -40,12 +40,12 @@ services:
   tests:
     <<: *default-web
     container_name: recordbin-test
-    command: >
+    entrypoint: >
       bash -c "sleep 5 &&
       python manage.py migrate &&
       python manage.py seed &&
-      pytest -vs &&
-      exit"
+      pytest -vs"
+    # command: pytest -vs
     ports:
       # Uses regular 8000 internally, maps to 8001 on host
       - "8001:8000"

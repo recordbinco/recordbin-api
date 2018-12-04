@@ -104,10 +104,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "backend.core.auth.UserTokenAuthentication",
-        "backend.core.auth.SourceTokennAuthentication",
-        # "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
-        # "rest_framework.authentication.TokenAuthentication",
+        "backend.core.authentication.UserTokenAuthentication",
+        "backend.core.authentication.AppTokenAuthentication",
     ),
     # Uncomment to disables drf api views
     # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -116,11 +114,7 @@ REST_FRAMEWORK = {
 # https://djoser.readthedocs.io/en/stable/settings.html#token-model
 DJOSER = {
     "TOKEN_MODEL": "rest_framework.authtoken.models.Token"
-    # "TOKEN_MODEL": "backend.recordbin.models.SourceToken"
 }
-
-# http://getblimp.github.io/django-rest-framework-jwt/
-# JWT_AUTH = {"JWT_ALLOW_REFRESH": True}
 
 # Django Yasg + Redoc Settings
 # https://drf-yasg.readthedocs.io/en/stable/settings.html
@@ -130,10 +124,11 @@ REDOC_SETTINGS = {"SPEC_URL": "/openapi.yaml"}
 JET_DEFAULT_THEME = "default"
 JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_ITEMS = [
+    {"app_label": "authtoken", "items": [{"name": "token"}]},
     {"app_label": "auth", "items": [{"name": "group"}, {"name": "user"}]},
     {
         "app_label": "recordbin",
-        "items": [{"name": "record"}, {"name": "source"}, {"name": "sourcetoken"}],
+        "items": [{"name": "apptoken"}, {"name": "app"}, {"name": "record"}],
     },
     {
         "label": "Links",

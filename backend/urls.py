@@ -8,15 +8,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .recordbin.views import RecordViewSet, SourceViewSet, SourceTokenViewSet
+from .recordbin.views import RecordViewSet, AppViewSet, AppTokenViewSet
 from .docs import urlpatterns as doc_urlpatterns
 from .tableau import urlpatterns as tableau_urlpatterns
 
 
 router = routers.DefaultRouter()
 router.register("records", RecordViewSet)
-router.register("sources", SourceViewSet)
-router.register("tokens", SourceTokenViewSet)
+router.register("apps", AppViewSet)
+router.register("apptokens", AppTokenViewSet)
 
 urlpatterns = [
     path("api/v1/", include((router.urls, "records"), namespace="v1")),

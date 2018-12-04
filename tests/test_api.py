@@ -2,15 +2,16 @@
 import pytest
 from rest_framework.test import APIClient
 
-from backend.recordbin.models import SourceToken
+from backend.recordbin.models import AppToken
 
+# TODO: Add Token Tests
 
 @pytest.mark.django_db
 @pytest.fixture
 def authenticated_client(client):
-    token = SourceToken.objects.first()
+    token = AppToken.objects.first()
     client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+    client.credentials(HTTP_AUTHORIZATION="AppToken " + token.key)
     return client
 
 

@@ -2,40 +2,41 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework import exceptions
 
-from backend.recordbin.models import SourceToken
+from backend.recordbin.models import AppToken
 
 
 class UserTokenAuthentication(TokenAuthentication):
+    """ Uses rest_framework.authtoken.models.Token """
     keyword = "Token"
     model = Token
 
 
-class SourceTokennAuthentication(TokenAuthentication):
+class AppTokenAuthentication(TokenAuthentication):
     """
-    Similar to Token, but users SourceToken as model (belongs to Source not users)
+    Similar to Token, but users AppToken as model (belongs to apps not users)
     and accepts url param token
     """
 
-    keyword = "SourceToken"
-    model = SourceToken
+    keyword = "AppToken"
+    model = AppToken
 
     def authenticate(self, request):
         """ Override TokenAuthentication.authenticate to support url query param"""
-        token = request.query_params.get("source")
+        token = request.query_params.get("app")
         if token:
             return self.authenticate_credentials(token)
         return super().authenticate(request)
 
     def authenticate_credentials(self, key):
         """ Override TokenAuthentication.authenticate to support url query param"""
-        model = SourceToken
+        model = AppToken
         try:
             token = model.objects.get(key=key)
         except model.DoesNotExist:
             raise exceptions.AuthenticationFailed("Invalid token.")
 
-        if not token.source.owner.is_active:
+        if not token.app.owner.is_active:
             raise exceptions.AuthenticationFailed("User inactive or deleted.")
 
-        return (token.source.owner, token)
+        return (token.app.owner, token)
 
