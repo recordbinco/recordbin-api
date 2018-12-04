@@ -2,6 +2,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import exceptions
 from .models import SourceToken
 
+# TODO REPLACE
+# https://github.com/davesque/django-rest-framework-simplejwt
 
 class TokenAuthenticationWithUrlSupport(TokenAuthentication):
     """ Set as default for all calls """
