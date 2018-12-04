@@ -19,7 +19,6 @@ BASE_DIR = os.path.dirname(BACKEND_DIR)
 
 
 # Application definition
-
 ROOT_URLCONF = "backend.urls"
 
 INSTALLED_APPS = [
@@ -96,23 +95,18 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
-# LOGIN_URL = '/api/v1/login/'
-
 # RestFramework
 # https://www.django-rest-framework.org/
 REST_FRAMEWORK = {
-    # adds ?filter= to viewsets
-    # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     # pass request.version by getting namespace on url route
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
-        "backend.recordbin.token.TokenAuthenticationWithUrlSupport",
+        "backend.recordbin.auth.TokenAuthenticationWithUrlSupport",
     ),
-    # Disables api admin view
+    # Uncomment to disables drf api views
     # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
@@ -130,7 +124,6 @@ JET_DEFAULT_THEME = "default"
 JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_ITEMS = [
     {"app_label": "auth", "items": [{"name": "group"}, {"name": "user"}]},
-    # {"app_label": "authtoken", "items": [{"name": "token"}]},
     {
         "app_label": "recordbin",
         "items": [{"name": "record"}, {"name": "source"}, {"name": "sourcetoken"}],

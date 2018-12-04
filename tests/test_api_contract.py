@@ -6,9 +6,6 @@ from pyswagger.contrib.client.requests import Client
 from backend.recordbin.models import SourceToken
 
 
-# ADMIN_CREDENTIALS = dict(data=dict(admin="admin", password="admin"))
-
-
 @pytest.fixture
 def ADMIN_PAYLOAD(ADMIN_CREDENTIALS):
     return {"data": ADMIN_CREDENTIALS}
@@ -60,4 +57,5 @@ def test_contracts(app, auth, operation_name, kwargs):
     req, resp = app.op[operation_name](**kwargs)
     resp = client.request((req, resp))
     assert resp.status in (200, 201)
+    # jwt endpoints resp.data returns None
 

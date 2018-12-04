@@ -28,7 +28,7 @@ def openapi_view(request):
     return HttpResponse(data)
 
 
-doc_urlpatterns = [
+urlpatterns = [
     path("openapi.yaml", openapi_view),
     # Auto-generated at /_swagger(.yaml|.json)
     re_path(

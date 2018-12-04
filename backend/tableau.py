@@ -57,7 +57,7 @@ def table_info(request):
     return JsonResponse(data)
 
 
-tablea_urlpatterns = [
+urlpatterns = [
     path("connector/", connector),
     path("connector/tableinfo.json", table_info),
     path("connector/connectiondata.json", connection_data),
