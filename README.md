@@ -92,6 +92,10 @@ $ make tests
 $ make testsbash
 ```
 
+# Helpful Docker Commands
+
+`python manage.py makemigrations recordbin`
+
 # Todo
 
 - [ ] Change Schema to receive {"data": } ?

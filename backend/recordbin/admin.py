@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 
-from .models import Record, Source, SourceToken
+from .models import Record, App, AppToken
 
 
 def linkify(field_name):
@@ -37,22 +37,22 @@ class BaseModel(admin.ModelAdmin):
 
 @admin.register(Record)
 class RecordAdmin(BaseModel):
-    list_display = ["short_id", "created_on", linkify("source")]
-    list_filter = ["source__name"]
+    list_display = ["short_id", "created_on", linkify("app")]
+    list_filter = ["app__name"]
 
 
 class RecordInline(admin.TabularInline):
     model = Record
 
 
-class SourceTokenInline(admin.TabularInline):
-    model = SourceToken
+class AppTokenInline(admin.TabularInline):
+    model = AppToken
 
 
-@admin.register(Source)
-class SourceAdmin(BaseModel):
+@admin.register(App)
+class AppAdmin(BaseModel):
     list_display = ["short_id", "created_on", "owner", "name", "records", "tokens"]
-    inlines = [RecordInline, SourceTokenInline]
+    inlines = [RecordInline, AppTokenInline]
 
     def records(self, obj):
         return len(obj.records.all())
@@ -61,6 +61,6 @@ class SourceAdmin(BaseModel):
         return len(obj.tokens.all())
 
 
-@admin.register(SourceToken)
-class SourceTokenAdmin(BaseModel):
-    list_display = ["key", "created_on", linkify("source")]
+@admin.register(AppToken)
+class AppTokenAdmin(BaseModel):
+    list_display = ["key", "created_on", linkify("app")]

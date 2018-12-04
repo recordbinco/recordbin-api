@@ -3,7 +3,7 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
 
-ADD requirements.txt /code/
+ADD ./requirements.txt /code/requirements.txt
 RUN pip3 install -q -r requirements.txt
 
 ADD . /code/

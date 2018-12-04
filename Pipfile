@@ -21,8 +21,8 @@ pytest-cov = "*"
 django-jet = "*"
 "flake8" = "*"
 black = "*"
-djangorestframework-jwt = "*"
 pytest-lazy-fixture = "*"
+djoser = "*"
 
 [dev-packages]
 

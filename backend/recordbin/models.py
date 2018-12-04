@@ -23,8 +23,8 @@ class Record(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = JSONField()
     created_on = models.DateTimeField(auto_now_add=True)
-    source = models.ForeignKey(
-        "Source", related_name="records", on_delete=models.CASCADE
+    app = models.ForeignKey(
+        "App", related_name="records", on_delete=models.CASCADE
     )
 
     def save(self, *args, **kwargs):
@@ -38,17 +38,17 @@ class Record(BaseModel):
 
 class RecordSerializer(serializers.ModelSerializer):
     data = serializers.JSONField()  # Needed?
-    source = serializers.SlugRelatedField(many=False, read_only=True, slug_field="name")
+    app = serializers.SlugRelatedField(many=False, read_only=True, slug_field="name")
 
     class Meta:
         model = Record
-        fields = ("id", "created_on", "data", "source")
+        fields = ("id", "created_on", "data", "app")
 
     def create(self, validated_data):
         """ Override create to ensure received data is stored in data field """
-        # source_id injected by view:perform_create
-        source_id = validated_data.pop("source_id")
-        return Record.objects.create(source_id=source_id, data=validated_data)
+        # app_id injected by view:perform_create
+        app_id = validated_data.pop("app_id")
+        return Record.objects.create(app_id=app_id, data=validated_data)
 
     def to_internal_value(self, request_data):
         """ Pass through to pass data as is and ignore model fields """
@@ -56,39 +56,45 @@ class RecordSerializer(serializers.ModelSerializer):
         return request_data
 
 
-class Source(BaseModel):
+class App(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="sources", on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL, related_name="apps", on_delete=models.CASCADE
     )
 
     class Meta:
-        verbose_name = "Record Source"
-        verbose_name_plural = "Record Sources"
+        verbose_name = "App"
+        verbose_name_plural = "Apps"
 
 
-class SourceSerializer(serializers.ModelSerializer):
+class AppSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(
         many=False, read_only=True, slug_field="username"
     )
 
     class Meta:
-        model = Source
+        model = App
         fields = ("id", "created_on", "name", "owner")
 
 
-class SourceToken(models.Model):
+class AppToken(models.Model):
     """ DRF authorization token model > Modified: Removes User """
 
     key = models.CharField("Key", max_length=40, primary_key=True, editable=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    source = models.ForeignKey(Source, related_name="tokens", on_delete=models.CASCADE)
+    app = models.ForeignKey(App, related_name="tokens", on_delete=models.CASCADE)
+    # permission_choices = (
+    #     ('R', 'Read'),
+    #     ('W', 'Write'),
+    #     ('RW', 'Read and Write'),
+    # )
+    # permissions = models.CharField(max_length=2, choices=permission_choices)
 
     class Meta:
-        verbose_name = "Source Token"
-        verbose_name_plural = "Source Tokens"
+        verbose_name = "App Token"
+        verbose_name_plural = "App Tokens"
 
     def __str__(self):
         return self.key
@@ -99,14 +105,14 @@ class SourceToken(models.Model):
         return super().save(*args, **kwargs)
 
 
-class SourceTokenSerializer(serializers.ModelSerializer):
-    source = serializers.SlugRelatedField(
-        many=False, queryset=Source.objects.all(), read_only=False, slug_field="name"
+class AppTokenSerializer(serializers.ModelSerializer):
+    app = serializers.SlugRelatedField(
+        many=False, queryset=App.objects.all(), read_only=False, slug_field="name"
     )
 
     class Meta:
-        model = SourceToken
-        fields = ("key", "created_on", "source")
+        model = AppToken
+        fields = ("key", "created_on", "app")
 
 
-ALL_MODELS = [Record, Source, SourceToken]
+ALL_MODELS = [Record, App, AppToken]
