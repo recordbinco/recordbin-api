@@ -45,4 +45,3 @@ class AppTokenAuthentication(TokenAuthentication):
             raise exceptions.AuthenticationFailed("User inactive or deleted.")
 
         return (token.app.owner, token)
-

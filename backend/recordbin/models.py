@@ -8,12 +8,11 @@ from rest_framework import serializers
 
 
 class BaseModel(models.Model):
-    def __str__(self, **kwargs):
+
+    def __repr__(self, **kwargs):
         cls_name = self.__class__.__name__
         short_id = str(self.id).split("-")[0]
         return f"<{cls_name} id=({short_id})>"
-        # Record.objects.first() # TODO
-        # <Record: <Record id=(01baf783)>
 
     class Meta:
         abstract = True
@@ -85,12 +84,12 @@ class AppToken(models.Model):
     key = models.CharField("Key", max_length=40, primary_key=True, editable=False)
     created_on = models.DateTimeField(auto_now_add=True)
     app = models.ForeignKey(App, related_name="tokens", on_delete=models.CASCADE)
-    # permission_choices = (
-    #     ('R', 'Read'),
-    #     ('W', 'Write'),
-    #     ('RW', 'Read and Write'),
-    # )
-    # permissions = models.CharField(max_length=2, choices=permission_choices)
+    permission_choices = (
+        ('R', 'Read'),
+        ('W', 'Write'),
+        ('RW', 'Read and Write'),
+    )
+    permissions = models.CharField(max_length=2, choices=permission_choices)
 
     class Meta:
         verbose_name = "App Token"

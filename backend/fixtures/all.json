@@ -1,61 +1,124 @@
 [
-  {
-    "model": "recordbin.record",
-    "pk": "01baf783-c07a-48a8-9f02-9fabb6f08d67",
-    "fields": {
-      "data": {
-        "result": 1,
-        "username": "gtalarico"
-      },
-      "created_on": "2018-11-17T19:39:25.524Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
+{
+ "model": "recordbin.record",
+ "pk": "01baf783-c07a-48a8-9f02-9fabb6f08d67",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "gtalarico"
   },
-  {
-    "model": "recordbin.record",
-    "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
-    "fields": {
-      "data": {
-        "result": 0,
-        "username": "jfriedman"
-      },
-      "created_on": "2018-11-17T19:39:45.275Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
+  "created_on": "2018-11-17T19:39:25.524Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "1292d61a-9600-4dfd-a537-7546eba29f76",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "jonatan"
   },
-  {
-    "model": "recordbin.apptoken",
-    "pk": "84d2dbf92ddf8263605c01dc51466ee0725646b4",
-    "fields": {
-      "created_on": "2018-11-19T23:22:30.450Z",
-      "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
-    }
+  "created_on": "2018-12-04T20:53:24.567Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "3b872f2a-e759-4b2c-94f2-ac3be5fb7d34",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "jonatan"
   },
-  {
-    "model": "auth.user",
-    "pk": 1,
-    "fields": {
-      "password": "pbkdf2_sha256$120000$Vpp0vFWkS79w$7TbJBVlEQ2OTF93PdTckum+6HslT2gECoBm3uJct8+c=",
-      "last_login": "2018-11-17T19:39:05.956Z",
-      "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
-      "email": "admin@admin.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2018-11-17T19:37:59.605Z",
-      "groups": [],
-      "user_permissions": []
-    }
+  "created_on": "2018-12-04T21:05:27.964Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "4dd4a05c-9204-4461-8a9e-e9032ae14cee",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "jonatan"
   },
-  {
-    "model": "recordbin.app",
-    "pk": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
-    "fields": {
-      "name": "pyRevit",
-      "created_on": "2018-11-19T19:43:48.825Z",
-      "owner": ["admin"]
-    }
-  }
+  "created_on": "2018-12-04T20:52:55.859Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "7ef1a860-a40b-49e3-9f28-9452caab2308",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "jonatan"
+  },
+  "created_on": "2018-12-04T21:03:17.055Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "8aa3aec1-3adb-476a-ae0f-f76e31a0b235",
+ "fields": {
+  "data": {
+   "result": 1,
+   "username": "jonatan"
+  },
+  "created_on": "2018-12-04T20:53:47.982Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.record",
+ "pk": "e12e5990-86c7-49bd-a861-4368b48741f7",
+ "fields": {
+  "data": {
+   "result": 0,
+   "username": "jfriedman"
+  },
+  "created_on": "2018-11-17T19:39:45.275Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6"
+ }
+},
+{
+ "model": "recordbin.apptoken",
+ "pk": "84d2dbf92ddf8263605c01dc51466ee0725646b4",
+ "fields": {
+  "created_on": "2018-11-19T23:22:30.450Z",
+  "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
+  "permissions": "W"
+ }
+},
+{
+ "model": "auth.user",
+ "pk": 1,
+ "fields": {
+  "password": "pbkdf2_sha256$120000$Vpp0vFWkS79w$7TbJBVlEQ2OTF93PdTckum+6HslT2gECoBm3uJct8+c=",
+  "last_login": "2018-12-04T21:04:25.176Z",
+  "is_superuser": true,
+  "username": "admin",
+  "first_name": "",
+  "last_name": "",
+  "email": "admin@admin.com",
+  "is_staff": true,
+  "is_active": true,
+  "date_joined": "2018-11-17T19:37:59.605Z",
+  "groups": [],
+  "user_permissions": []
+ }
+},
+{
+ "model": "recordbin.app",
+ "pk": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
+ "fields": {
+  "name": "pyRevit",
+  "created_on": "2018-11-19T19:43:48.825Z",
+  "owner": [
+   "admin"
+  ]
+ }
+}
 ]

@@ -108,7 +108,7 @@ REST_FRAMEWORK = {
         "backend.core.authentication.UserTokenAuthentication",
     ),
     # Uncomment to disables drf api views
-    # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
 # https://djoser.readthedocs.io/en/stable/settings.html#token-model
@@ -132,7 +132,7 @@ JET_SIDE_MENU_ITEMS = [
         "label": "Links",
         "items": [
             {"label": "Docs", "url": "/redoc", "url_blank": True},
-            {"label": "Api V1", "url": "/api/v1", "url_blank": True},
+            # {"label": "Api V1", "url": "/api/v1", "url_blank": True},
         ],
     },
 ]

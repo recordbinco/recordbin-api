@@ -1,9 +1,14 @@
 import re
 from rest_framework import viewsets, mixins
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated # no qa
 from rest_framework.authtoken.models import Token
 from django_filters.rest_framework import DjangoFilterBackend
 
+from rest_framework.authentication import SessionAuthentication
+from backend.core.authentication import AppTokenAuthentication, UserTokenAuthentication
+
+from .filtersets import RecordFilterSet
+from .permissions import AppTokenReadWritePermission
 from .models import (
     Record,
     RecordSerializer,
@@ -12,7 +17,6 @@ from .models import (
     AppToken,
     AppTokenSerializer,
 )
-from .filtersets import RecordFilterSet
 
 
 class RecordViewSet(
@@ -26,8 +30,8 @@ class RecordViewSet(
     Create a new record instance.
     """
 
-    # Added Globally on `settings/base.py`
-    permission_classes = (IsAuthenticated,)
+    authentication_classes = (AppTokenAuthentication, UserTokenAuthentication)
+    permission_classes = (IsAuthenticated, AppTokenReadWritePermission)
 
     queryset = Record.objects.all()
     serializer_class = RecordSerializer
@@ -54,7 +58,7 @@ class RecordViewSet(
         user = self.request.user  # logged in user or annon
         token = self.request.auth
         if isinstance(token, AppToken):
-            # TokenAuthentication: Filter Records by AppToken__app
+            # AppToken Authentication: Filter Records by AppToken__app
             app = token.app
             filter_kwargs["app"] = app
         elif isinstance(token, Token):
@@ -76,7 +80,8 @@ class AppViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Return a list of Apps.
     """
 
-    permission_classes = (IsAuthenticated, IsAdminUser)
+    authentication_classes = (UserTokenAuthentication, )
+    permission_classes = (IsAuthenticated,)
     queryset = App.objects.all()
     serializer_class = AppSerializer
 
@@ -90,7 +95,8 @@ class AppTokenViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Return a list of App Tokens.
     """
 
-    permission_classes = (IsAuthenticated, IsAdminUser)
+    authentication_classes = (UserTokenAuthentication, )
+    permission_classes = (IsAuthenticated,)
     queryset = AppToken.objects.all()
     serializer_class = AppTokenSerializer
 
