@@ -19,8 +19,8 @@ securityDefinitions:
   AppTokenParam:
     type: apiKey
     in: query
-    name: app
-    description: "App Token in request url param: `/records/?token=123`"
+    name: apptoken
+    description: "App Token in request url param: `/records/?apptoken=123`"
   # Header {Authorization: Token 123...}
   AppTokenHeader:
     type: apiKey

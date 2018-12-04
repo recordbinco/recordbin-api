@@ -6,8 +6,13 @@ from backend.recordbin.models import AppToken
 
 
 class UserTokenAuthentication(TokenAuthentication):
-    """ Uses rest_framework.authtoken.models.Token """
-    keyword = "Token"
+    """
+    Uses rest_framework.authtoken.models.Token
+    Each token is linked to and is unique to a user -
+    One Token <> One User
+    """
+
+    keyword = "UserToken"
     model = Token
 
 
@@ -15,6 +20,7 @@ class AppTokenAuthentication(TokenAuthentication):
     """
     Similar to Token, but users AppToken as model (belongs to apps not users)
     and accepts url param token
+    One App <>> Many Tokens
     """
 
     keyword = "AppToken"
@@ -22,7 +28,7 @@ class AppTokenAuthentication(TokenAuthentication):
 
     def authenticate(self, request):
         """ Override TokenAuthentication.authenticate to support url query param"""
-        token = request.query_params.get("app")
+        token = request.query_params.get("apptoken")
         if token:
             return self.authenticate_credentials(token)
         return super().authenticate(request)

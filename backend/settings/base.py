@@ -104,17 +104,15 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "backend.core.authentication.UserTokenAuthentication",
         "backend.core.authentication.AppTokenAuthentication",
+        "backend.core.authentication.UserTokenAuthentication",
     ),
     # Uncomment to disables drf api views
     # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
 # https://djoser.readthedocs.io/en/stable/settings.html#token-model
-DJOSER = {
-    "TOKEN_MODEL": "rest_framework.authtoken.models.Token"
-}
+DJOSER = {"TOKEN_MODEL": "rest_framework.authtoken.models.Token"}
 
 # Django Yasg + Redoc Settings
 # https://drf-yasg.readthedocs.io/en/stable/settings.html
