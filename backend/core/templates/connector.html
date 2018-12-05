@@ -124,7 +124,7 @@
           if (tableau.phase == tableau.phaseEnum.gatherDataPhase) {
             // Checks  validity of token-  call tableau.abortForAuth if token is invalid.
             axios
-              .get("/api/v1/records/?token=" + tableau.password)
+              .get("/api/v1/records/?apptoken=" + tableau.password)
               .then(function(response) {
                 initCallback()
               })
@@ -141,7 +141,7 @@
       // Helper function that loads a json and a callback to call once that file is loaded
       function getJson(urlPath, callback) {
         var headers = {'Content-type': 'application/json'}
-        if (tableau.password) { headers['Authorization'] = "Token " + tableau.password }
+        if (tableau.password) { headers['Authorization'] = "AppToken " + tableau.password }
         return axios.get(urlPath, { 'headers': headers }).then(function (response) {
           if (response.status == 200) {
             callback(response.data)
