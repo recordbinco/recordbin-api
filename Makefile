@@ -1,4 +1,4 @@
-.PHONY: usage start stop restart inspect log stopall tests cli  requirements
+.PHONY: usage start stop restart inspect log stopall tests cli requirements clean deploy
 
 
 # Colors
@@ -70,6 +70,13 @@ lint:
 requirements:
 	pipenv lock --requirements > requirements.txt
 
+## clean: delete python artifacts
 clean:
 	python3 -c "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.py[co]')]"
 	python3 -c "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__pycache__')]"
+
+## clean: delete python artifacts
+deploy:
+	heroku container:login
+	heroku container:push web --app ww-recordbin
+	heroku container:release web --app ww-recordbin
