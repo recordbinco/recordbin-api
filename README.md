@@ -20,10 +20,10 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 ### Sample Record Post Request
 
 ```
-curl -H "Content-Type: application/json" -H "Authorization: Token <token>" \
-     --request POST \
-     --data '{"username":"xyz","result":0, "action": "deleted"}' \
-     http://ww-recordbin.herokuapp.com/api/v1/records/
+curl -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"username":"xyz","result":0, "action": "deleted"}' \
+     "http://ww-recordbin.herokuapp.com/api/v1/records/?apptoken=c31b75c156669e8d59acec073d16968e4c29bfa6"
 ```
 
 ## Querying
@@ -99,6 +99,7 @@ $ make testsbash
 # Todo
 
 - [ ] Change Schema to receive {"data": } ?
+- [ ] Add JSON Export Endpoint
 - [x] Package all commands in Makefile
 - [x] Disconnect Token from User
 - [x] Add instructions for querying / retrieving data
