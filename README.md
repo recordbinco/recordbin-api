@@ -12,10 +12,10 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 
 ### Demo
 
-- [Admin Panel](http://ww-recordbin.herokuapp.com/) (admin:admin)
-- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)\*
-- [Api Explorer](http://ww-recordbin.herokuapp.com/api/v1/)\*
-  \*Must login Admin panel first to authenticate
+- [Admin Panel](http://ww-recordbin.herokuapp.com/) (user: admin / pwd:admin)
+- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)
+
+\*Must login using admin panel first)
 
 ### Sample Record Post Request
 
