@@ -7,10 +7,10 @@ There are several options for accessing data in your Record Bin deployment
 Call the endpoints and consume the Json Data directly:
 
 ```bash
-curl -H "Content-Type: application/json" -H "Authorization: Token <token>" \
+curl -H "Content-Type: application/json" \
      --request POST \
      --data '{"username":"xyz","result":0, "action": "deleted"}' \
-     http://ww-recordbin.herokuapp.com/api/v1/records/
+     "http://ww-recordbin.herokuapp.com/api/v1/records/?apptoken=<token>
 ```
 
 ## Database Access

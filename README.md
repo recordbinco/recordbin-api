@@ -26,6 +26,23 @@ curl -H "Content-Type: application/json" \
      "http://ww-recordbin.herokuapp.com/api/v1/records/?apptoken=c31b75c156669e8d59acec073d16968e4c29bfa6"
 ```
 
+#### Python Client
+
+[RecordBin Python](http://www.github.com/gtalarico/recordbin-python)
+
+```
+$ pip install recordbin
+$ pyhton
+>>> from recordbin import RecordBin
+>>> bin = RecordBin(url='http://ww-recordbin.herokuapp.com',
+                    token='c31b75c156669e8d59acec073d16968e4c29bfa6')
+>>> bin.post({'username': 'python'})
+>>> # .post returns a Future object. To confirm result call `result()` on response:
+>>> resp = bin.post({'username': 'python'})
+>>> resp.result()
+<Response [201]>
+```
+
 ## Querying
 
 More on querying RecordBin Data [here](https://github.com/gtalarico/recordbin/blob/master/QUERYING.md)
@@ -100,9 +117,3 @@ $ make testsbash
 
 - [ ] Change Schema to receive {"data": } ?
 - [ ] Add JSON Export Endpoint
-- [x] Package all commands in Makefile
-- [x] Disconnect Token from User
-- [x] Add instructions for querying / retrieving data
-- [x] Add Tableau Json endpoint
-- [x] Add Auth
-- [x] Fix Tests (test db config - sqlite not working because of json field)
