@@ -23,6 +23,7 @@ django-jet = "*"
 black = "*"
 pytest-lazy-fixture = "*"
 djoser = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

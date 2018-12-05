@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -35,12 +36,14 @@ INSTALLED_APPS = [
     "djoser",
     "django_filters",
     "drf_yasg",
+    "corsheaders",
     "backend.core",
     "backend.recordbin",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware", # < Before WhiteNoise (not needed?)
     # Insert Whitenoise Middleware at top but below Security Middleware
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -147,3 +150,22 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "staticfiles"
 # Where to search for static files
 # STATICFILES_DIRS = []
+
+# Cors
+
+CORS_ORIGIN_WHITELIST = (
+    'ww-recordbin-ui.herokuapp.com',
+    'localhost:8000',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
