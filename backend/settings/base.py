@@ -151,13 +151,7 @@ STATIC_ROOT = "staticfiles"
 # Where to search for static files
 # STATICFILES_DIRS = []
 
-# Cors
-
-CORS_ORIGIN_WHITELIST = (
-    'ww-recordbin-ui.herokuapp.com',
-    'localhost:8000',
-)
-
+# Cors Env Specific Settings in Config
 CORS_ALLOW_HEADERS = (
     'accept',
     'accept-encoding',

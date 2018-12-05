@@ -21,6 +21,12 @@ DATABASE_URL = config("DATABASE_URL")
 db_config = dj_database_url.config(default=DATABASE_URL)
 DATABASES = {"default": db_config}  # Django DATABASES
 
+# Cors:
+CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ORIGIN_WHITELIST = (
+    'ww-recordbin-ui.herokuapp.com',
+)
+
 # print(f"------------------------------------")
 # print(f"DEBUG IS: {DEBUG}")
 # print(f"ALLOWED_HOSTS IS: {ALLOWED_HOSTS}")
