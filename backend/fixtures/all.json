@@ -41,7 +41,7 @@
     "fields": {
       "created_on": "2018-11-19T23:22:30.450Z",
       "app": "4d7bb233-89ab-4a19-8da3-5ac4457aade6",
-      "permissions": "W"
+      "permissions": "RW"
     }
   },
   {
