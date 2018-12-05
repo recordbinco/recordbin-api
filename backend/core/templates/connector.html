@@ -107,6 +107,11 @@
           })
         }
         myConnector.init = function(initCallback) {
+
+          // tableau.abortForAuth("Incorrect token: " + tableau.password)
+          // if (!tableau.password) {
+          // }
+
           document.getElementById("tableau-not-init").classList.add("hide")
 
           tableau.authType = tableau.authTypeEnum.custom
