@@ -2,12 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- <meta http-equiv="X-Frame-Options" content="allow" /> -->
     <title>Standard Connections Placeholder Example</title>
-    <!--
-      In order to use promises, like this example, you will need to include this polyfill to add promises
-      functionality to the built in Tableau WDC browser (it does not have ES6 functionality by default)
-    -->
     <style>
       .hide {
         display: none !important;
@@ -117,6 +112,7 @@
           tableau.authType = tableau.authTypeEnum.custom
           tableau.log("Phase is: " + tableau.phase)
           console.log("Phase is: " + tableau.phase)
+
           if (tableau.phase == tableau.phaseEnum.authPhase) {
             // It's in auth phase - hide get data button / show token auth form
             document.getElementById("fetch-form").classList.add("hide")

@@ -117,3 +117,4 @@ $ make testsbash
 
 - [ ] Change Schema to receive {"data": } ?
 - [ ] Add JSON Export Endpoint
+- [ ] Add Circle CI (see python-stds)
