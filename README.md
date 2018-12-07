@@ -80,7 +80,7 @@ heroku apps:create <appname>
 heroku git:remote --app <appname>
 heroku addons:create heroku-postgresql:hobby-dev
 heroku config:set DJANGO_ALLOWED_HOSTS=<appname>.herokuapp.com
-heroku config:set DJANGO_SECRET_KEY=<appname>.herokuapp.com
+heroku config:set DJANGO_SECRET_KEY=SomeSecretString
 heroku config:set DJANGO_DEBUG=0
 ```
 
@@ -118,3 +118,4 @@ $ make testsbash
 - [ ] Change Schema to receive {"data": } ?
 - [ ] Add JSON Export Endpoint
 - [ ] Add Circle CI (see python-stds)
+- [ ] Make heroku.sh initializer

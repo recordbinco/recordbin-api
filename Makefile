@@ -78,5 +78,5 @@ clean:
 ## clean: delete python artifacts
 deploy:
 	heroku container:login
-	heroku container:push web --app ww-recordbin
-	heroku container:release web --app ww-recordbin
+	heroku container:push web --app recordbin-api
+	heroku container:release web --app recordbin-api
