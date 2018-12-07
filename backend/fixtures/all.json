@@ -45,13 +45,12 @@
     }
   },
   {
-    "model": "auth.user",
+    "model": "recordbin.user",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$120000$Vpp0vFWkS79w$7TbJBVlEQ2OTF93PdTckum+6HslT2gECoBm3uJct8+c=",
       "last_login": "2018-12-04T21:04:25.176Z",
       "is_superuser": true,
-      "username": "admin",
       "first_name": "",
       "last_name": "",
       "email": "admin@admin.com",
@@ -66,7 +65,7 @@
     "model": "authtoken.token",
     "pk": "7d2b7f39a7d290fda92fd56d1526fa150bacfaea",
     "fields": {
-      "user": ["admin"],
+      "user": ["admin@admin.com"],
       "created": "2018-12-04T22:36:33.743Z"
     }
   },
@@ -76,7 +75,7 @@
     "fields": {
       "name": "pyRevit",
       "created_on": "2018-11-19T19:43:48.825Z",
-      "owner": ["admin"]
+      "owner": ["admin@admin.com"]
     }
   }
 ]

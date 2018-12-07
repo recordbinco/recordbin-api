@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 
-from .models import Record, App, AppToken
+from .models import Record, App, AppToken, User
 
 
 def linkify(field_name):
@@ -64,3 +64,7 @@ class AppAdmin(BaseModel):
 @admin.register(AppToken)
 class AppTokenAdmin(BaseModel):
     list_display = ["key", "created_on", "permissions", linkify("app")]
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass

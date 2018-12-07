@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission
-from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.models import Token as UserToken
 from .models import AppToken
 
 
@@ -11,6 +11,6 @@ class AppTokenReadWritePermission(BasePermission):
                 return "R" in permissions
             if request.method == "POST":
                 return "W" in permissions
-        if isinstance(request.auth, Token):
+        if isinstance(request.auth, UserToken):
             return request.method == "GET"
         return True

@@ -50,7 +50,6 @@ stopall:
 ## tests: run test suite (alows pdb and breakpoint)
 tests:
 	docker-compose run --service-ports --rm tests
-	docker stop recordbin-web
 	docker stop postgres_test_db
 
 ## testsbash: runs bash inside test container for easier test troubleshooting

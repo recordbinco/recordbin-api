@@ -24,11 +24,13 @@ DATABASES = {"default": db_config}  # Django DATABASES
 # CORS
 CORS_ORIGIN_ALLOW_ALL = config("DJANGO_CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
 CORS_ORIGIN_WHITELIST = [
-    'recordbin-ui.herokuapp.com',
     'recordbin.co',
     'www.recordbin.co',
     *config("DJANGO_CORS_ORIGIN_WHITELIST", cast=Csv(), default='')
 ]
+
+if DEBUG:
+    CORS_ORIGIN_WHITELIST.append('localhost:8080')
 
 
 # print(f"------------------------------------")

@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(SETTINGS_DIR)
 BASE_DIR = os.path.dirname(BACKEND_DIR)
 
+AUTH_USER_MODEL = "recordbin.User"
 
 # Application definition
 ROOT_URLCONF = "backend.urls"
@@ -37,13 +37,12 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "corsheaders",
-    "backend.core",
     "backend.recordbin",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware", # < Before WhiteNoise (not needed?)
+    "corsheaders.middleware.CorsMiddleware",  # < Before WhiteNoise (not needed?)
     # Insert Whitenoise Middleware at top but below Security Middleware
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -107,8 +106,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "backend.core.authentication.AppTokenAuthentication",
-        "backend.core.authentication.UserTokenAuthentication",
+        "backend.recordbin.authentication.AppTokenAuthentication",
+        "backend.recordbin.authentication.UserTokenAuthentication",
     ),
     # Uncomment to disables drf api views
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -126,15 +125,19 @@ JET_DEFAULT_THEME = "default"
 JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_ITEMS = [
     {"app_label": "authtoken", "items": [{"name": "token"}]},
-    {"app_label": "auth", "items": [{"name": "group"}, {"name": "user"}]},
+    {"app_label": "auth", "items": [{"name": "group"}]},
     {
         "app_label": "recordbin",
-        "items": [{"name": "apptoken"}, {"name": "app"}, {"name": "record"}],
+        "items": [{"name": "user"}, {"name": "apptoken"}, {"name": "app"}, {"name": "record"}],
     },
     {
         "label": "Links",
         "items": [
-            {"label": "RecordBin UI", "url": "http://www.recordbin.co", "url_blank": True},
+            {
+                "label": "RecordBin UI",
+                "url": "http://www.recordbin.co",
+                "url_blank": True,
+            },
             {"label": "Docs", "url": "/redoc", "url_blank": True},
             # {"label": "Api V1", "url": "/api/v1", "url_blank": True},
         ],
@@ -154,13 +157,13 @@ STATIC_ROOT = "staticfiles"
 
 # Cors Env Specific Settings in Config
 CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 )
