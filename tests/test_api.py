@@ -61,4 +61,4 @@ def test_wsgi():
 @pytest.mark.django_db
 def test_unauthorized(client):
     response = client.get("/api/v1/records/")
-    assert response.status_code == 403
+    assert response.status_code == 401

@@ -27,16 +27,15 @@ securityDefinitions:
     in: header
     name: Authorization
     description: 'App Token in request Authorization Header: `{ Authorization: "AppToken 123"}`'
-  # JWT Token
-  UserToken:
+  UserTokenHeader:
     type: apiKey
     in: header
     name: Authorization
-    description: 'JWT Token in request Authorization Header: `{ Authorization: "Token 123"}`'
+    description: 'User Token in request Authorization Header: `{ Authorization: "UserToken 123"}`'
 security:
   - AppTokenParam: []
   - AppTokenHeader: []
-  - JwtToken: []
+  - UserTokenHeader: []
 paths:
   /records/:
     get:
@@ -161,35 +160,3 @@ definitions:
       app:
         title: App
         type: string
-  JSONWebToken:
-    required:
-      - username
-      - password
-    type: object
-    properties:
-      username:
-        title: Username
-        type: string
-        minLength: 1
-      password:
-        title: Password
-        type: string
-        minLength: 1
-  RefreshJSONWebToken:
-    required:
-      - token
-    type: object
-    properties:
-      token:
-        title: Token
-        type: string
-        minLength: 1
-  VerifyJSONWebToken:
-    required:
-      - token
-    type: object
-    properties:
-      token:
-        title: Token
-        type: string
-        minLength: 1

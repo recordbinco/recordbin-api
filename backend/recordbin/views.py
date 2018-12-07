@@ -1,11 +1,14 @@
 import re
 from rest_framework import viewsets, mixins
-from rest_framework.permissions import IsAdminUser, IsAuthenticated # no qa
-from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAdminUser, IsAuthenticated  # noqa
+from rest_framework.authtoken.models import Token as UserToken
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework.authentication import SessionAuthentication
-from backend.core.authentication import AppTokenAuthentication, UserTokenAuthentication
+# from rest_framework.authentication import SessionAuthentication
+from backend.recordbin.authentication import (
+    UserTokenAuthentication,
+    AppTokenAuthentication,
+)
 
 from .filtersets import RecordFilterSet
 from .permissions import AppTokenReadWritePermission
@@ -40,6 +43,8 @@ class RecordViewSet(
 
     def perform_create(self, serializer):
         app_token = self.request.auth
+        # auth should be app token since it is the only
+        # auth authorized to issue POST
         serializer.save(app_id=app_token.app.pk)
 
     def get_queryset(self):
@@ -61,7 +66,7 @@ class RecordViewSet(
             # AppToken Authentication: Filter Records by AppToken__app
             app = token.app
             filter_kwargs["app"] = app
-        elif isinstance(token, Token):
+        elif isinstance(token, UserToken):
             user = token.user
             filter_kwargs["app__owner"] = user
         elif not token and user.is_authenticated and user.is_staff:
@@ -80,7 +85,7 @@ class AppViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Return a list of Apps.
     """
 
-    authentication_classes = (UserTokenAuthentication, )
+    authentication_classes = (UserTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     queryset = App.objects.all()
     serializer_class = AppSerializer
@@ -95,7 +100,7 @@ class AppTokenViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Return a list of App Tokens.
     """
 
-    authentication_classes = (UserTokenAuthentication, )
+    authentication_classes = (UserTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     queryset = AppToken.objects.all()
     serializer_class = AppTokenSerializer
