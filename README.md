@@ -12,7 +12,7 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 
 ### Demo
 
-- [Web: www.recordbin.co](recordbin.co)
+- [Web: www.recordbin.co](http://recordbin.co)
 - [Api: Admin](http://api.recordbin.co/) (user: admin@admin.co / pwd:admin)
 - [Api: Docs](http://api.recordbin.co/redoc/) (login into admin first)
 
