@@ -69,10 +69,6 @@ class RecordViewSet(
         elif isinstance(token, UserToken):
             user = token.user
             filter_kwargs["app__owner"] = user
-        elif not token and user.is_authenticated and user.is_staff:
-            # SessionAuthentication: Admin session cookie (used by api/v1/ and docs)
-            # No Filters
-            pass
         else:
             # Not sure who this is return nothing
             return Record.objects.none()
@@ -87,11 +83,15 @@ class AppViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     authentication_classes = (UserTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = App.objects.all()
     serializer_class = AppSerializer
+    queryset = App.objects.all()
 
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return App.objects.filter(owner=user)
 
 
 class AppTokenViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -102,8 +102,12 @@ class AppTokenViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     authentication_classes = (UserTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = AppToken.objects.all()
     serializer_class = AppTokenSerializer
+    queryset = AppToken.objects.all()
 
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return AppToken.objects.filter(app__owner=user)
