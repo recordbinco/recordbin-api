@@ -118,3 +118,4 @@ $ make testsbash
 - [ ] Add JSON Export Endpoint
 - [ ] Add Circle CI (see python-stds)
 - [ ] Make heroku.sh initializer
+- [ ] Add registration
