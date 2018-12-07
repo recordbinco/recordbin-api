@@ -3,7 +3,6 @@ import binascii
 import os
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .base import BaseModel
@@ -23,7 +22,7 @@ class App(BaseModel):
 
 class AppSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(
-        many=False, read_only=True, slug_field="username"
+        many=False, read_only=True, slug_field="email"
     )
 
     class Meta:
