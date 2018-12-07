@@ -12,10 +12,9 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 
 ### Demo
 
-- [Admin Panel](http://ww-recordbin.herokuapp.com/) (user: admin / pwd:admin)
-- [Api Docs](http://ww-recordbin.herokuapp.com/redoc/)
-
-\*Must login using admin panel first)
+- [Web: www.recordbin.co](www.recordbin.co)
+- [Api: Admin](http://api.recordbin.co/) (user: admin / pwd:admin)
+- [Api: Docs](http://api.recordbin.co/redoc/) (login into admin first)
 
 ### Sample Record Post Request
 
@@ -23,7 +22,7 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 curl -H "Content-Type: application/json" \
      -X POST \
      -d '{"username":"xyz","result":0, "action": "deleted"}' \
-     "http://ww-recordbin.herokuapp.com/api/v1/records/?apptoken=c31b75c156669e8d59acec073d16968e4c29bfa6"
+     "http://api.recordbin.co/api/v1/records/?apptoken=c31b75c156669e8d59acec073d16968e4c29bfa6"
 ```
 
 #### Python Client
@@ -34,7 +33,7 @@ curl -H "Content-Type: application/json" \
 $ pip install recordbin
 $ pyhton
 >>> from recordbin import RecordBin
->>> bin = RecordBin(url='http://ww-recordbin.herokuapp.com',
+>>> bin = RecordBin(url='http://api.recordbin.co',
                     token='c31b75c156669e8d59acec073d16968e4c29bfa6')
 >>> bin.post({'username': 'python'})
 >>> # .post returns a Future object. To confirm result call `result()` on response:

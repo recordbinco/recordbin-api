@@ -134,7 +134,7 @@ JET_SIDE_MENU_ITEMS = [
     {
         "label": "Links",
         "items": [
-            {"label": "RecordBin UI", "url": "http://ww-recordbin-ui.herokuapp.com", "url_blank": True},
+            {"label": "RecordBin UI", "url": "http://www.recordbin.co", "url_blank": True},
             {"label": "Docs", "url": "/redoc", "url_blank": True},
             # {"label": "Api V1", "url": "/api/v1", "url_blank": True},
         ],

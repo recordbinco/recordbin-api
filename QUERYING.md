@@ -10,7 +10,7 @@ Call the endpoints and consume the Json Data directly:
 curl -H "Content-Type: application/json" \
      --request POST \
      --data '{"username":"xyz","result":0, "action": "deleted"}' \
-     "http://ww-recordbin.herokuapp.com/api/v1/records/?apptoken=<token>
+     "http://api.recordbin.co/api/v1/records/?apptoken=<token>
 ```
 
 ## Database Access
@@ -33,7 +33,7 @@ FROM records_record
 
 ## Tableau Web Connector
 
-Create a Web Connector datasource and point it to `http://ww-recordbin.herokuapp.com/connector/`.
+Create a Web Connector datasource and point it to `http://api.recordbin.com/connector/`.
 You can use [this simmulator](http://tableau.github.io/webdataconnector/Simulator/) to ensure the connector is working properly.
 
 ### Accessing Data
