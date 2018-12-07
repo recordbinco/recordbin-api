@@ -99,7 +99,7 @@ heroku run python manage.py createsuperuser
 
 Note: In Development Mode (see section above),
 the Development Server includes a seeded admin user
-(username: admin, pwd: admin).
+(username: admin@admin.com, pwd: admin).
 
 # Tests
 
