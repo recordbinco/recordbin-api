@@ -22,7 +22,7 @@ Record Bin is flexible deployable API Service that can receive schemaless record
 curl -H "Content-Type: application/json" \
      -X POST \
      -d '{"username":"xyz","result":0, "action": "deleted"}' \
-     "http://api.recordbin.co/api/v1/records/?apptoken=242bfc55e375f180ea5d4538e67754c9e9ca0398"
+     "http://api.recordbin.co/api/v1/records/?apptoken=7419a34711c3b15b1d8793ef6221e2b080e6944c"
 ```
 
 #### Python Client
@@ -34,7 +34,7 @@ $ pip install recordbin
 $ pyhton
 >>> from recordbin import RecordBin
 >>> bin = RecordBin(url='http://api.recordbin.co',
-                    token='242bfc55e375f180ea5d4538e67754c9e9ca0398')
+                    token='7419a34711c3b15b1d8793ef6221e2b080e6944c')
 >>> bin.post({'username': 'python'})
 >>> # .post returns a Future object. To confirm result call `result()` on response:
 >>> resp = bin.post({'username': 'python'})
