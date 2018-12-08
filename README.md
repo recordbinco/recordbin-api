@@ -1,6 +1,6 @@
 # Record Bin
 
-[![Build Status](https://travis-ci.org/gtalarico/recordbin-python.svg?branch=master)](https://travis-ci.org/gtalarico/recordbin-python)
+[![CircleCI](https://circleci.com/gh/gtalarico/recordbin-api.svg?style=svg)](https://circleci.com/gh/gtalarico/recordbin-api)
 
 [![codecov](https://codecov.io/gh/gtalarico/recordbin-python/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/recordbin-python)
 
@@ -116,6 +116,6 @@ $ make testsbash
 
 - [ ] Change Schema to receive {"data": } ?
 - [ ] Add JSON Export Endpoint
-- [ ] Add Circle CI (see python-stds)
 - [ ] Make heroku.sh initializer
-- [ ] Add registration
+- [x] Add Circle CI (see python-stds)
+- [x] Add registration
