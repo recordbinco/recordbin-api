@@ -8,48 +8,55 @@ jobs:
         environment:
           PIPENV_VENV_IN_PROJECT: 1
           PIPENV_QUIET: 1
+          DATABASE_URL: postgresql://root@localhost/circle_test
           CODECOV_TOKEN: XXX
+
+      # Service container image available at `host: localhost`
+      - image: circleci/postgres:9.6.2-alpine
+        # environment:
+        #   POSTGRES_USER: postgres
+        #   POSTGRES_DB: recordbindb
+        #   PG_HOST: db
+
     working_directory: ~/repo
 
     steps:
       - checkout
 
       # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "Pipfile.lock" }}
-      #       # fallback to using the latest cache if no exact match is found
-      #       - v1-dependencies-
-
-      # - run:
-      #     name: Install Docker Compose
-      #     command: |
-      #       curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-      #       chmod +x ~/docker-compose
-      #       sudo mv ~/docker-compose /usr/local/bin/docker-compose
-
-      - setup_remote_docker
-
-      - run: |
-          docker create -v /code --name code alpine:3.4 /bin/true
-          docker cp . code:/code
-          # docker-compose run --volumes-from code tests
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Pipfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run:
-          name: Start container for tests
+          name: install dependencies
           command: |
-            docker-compose build
-            docker-compose run --volume=code tests
-          # command: docker-compose up --build tests
-      # - save_cache:
-      #     key: v1-dependencies-{{ checksum "Pipfile.lock" }}
-      #     paths:
-      #       - ./venv
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       . venv/bin/activate
-      #       python -m pytest
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade --quiet pip
+            pip install --quiet pipenv
+            pipenv install --dev --deploy
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ./venv
+
+      - run:
+          name: prepare database
+          command: |
+            . venv/bin/activate
+            python manage.py collectstatic --noinput -v=0
+            python manage.py migrate
+            python manage.py seed
+
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python -m pytest
       # - run:
       #     name: run linter
       #     command: |
