@@ -30,9 +30,17 @@ jobs:
 
       - setup_remote_docker
 
+      - run: |
+          docker create -v /code --name code alpine:3.4 /bin/true
+          docker cp . code:/code
+          # docker-compose run --volumes-from code tests
+
       - run:
           name: Start container for tests
-          command: docker-compose up --build tests
+          command: |
+            docker-compose build
+            docker-compose run --volume=code tests
+          # command: docker-compose up --build tests
       # - save_cache:
       #     key: v1-dependencies-{{ checksum "Pipfile.lock" }}
       #     paths:
