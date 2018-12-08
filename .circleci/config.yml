@@ -1,0 +1,55 @@
+# Python CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.1
+        environment:
+          PIPENV_VENV_IN_PROJECT: 1
+          PIPENV_QUIET: 1
+          CODECOV_TOKEN: XXX
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "Pipfile.lock" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - v1-dependencies-
+
+      # - run:
+      #     name: Install Docker Compose
+      #     command: |
+      #       curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+      #       chmod +x ~/docker-compose
+      #       sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+      - setup_remote_docker
+
+      - run:
+          name: Start container for tests
+          command: docker-compose up --build tests
+      # - save_cache:
+      #     key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+      #     paths:
+      #       - ./venv
+      # - run:
+      #     name: run tests
+      #     command: |
+      #       . venv/bin/activate
+      #       python -m pytest
+      # - run:
+      #     name: run linter
+      #     command: |
+      #       . venv/bin/activate
+      #       flake8 .
+      # - run:
+      #     name: upload coverage report
+      #     command: |
+      #       . venv/bin/activate
+      #       pip install codecov
+      #       codecov -t "$CODECOV_TOKEN"
