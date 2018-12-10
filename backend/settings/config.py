@@ -33,7 +33,8 @@ if DEBUG:
     CORS_ORIGIN_WHITELIST.append('localhost:8080')
 
 # Security
-SECURE_SSL_REDIRECT = config('DJANGO_SECURE_SSL_REDIRECT', cast=bool, default=True)
+SECURE_SSL_REDIRECT = config('DJANGO_SECURE_SSL_REDIRECT', cast=bool, default=True) \
+    and not DEBUG
 
 # print(f"------------------------------------")
 # print(f"DEBUG IS: {DEBUG}")
