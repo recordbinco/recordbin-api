@@ -33,8 +33,10 @@ if DEBUG:
     CORS_ORIGIN_WHITELIST.append('localhost:8080')
 
 # Security
-SECURE_SSL_REDIRECT = config('DJANGO_SECURE_SSL_REDIRECT', cast=bool, default=True) \
-    and not DEBUG
+# https://github.com/rdegges/django-sslify
+if not DEBUG:
+    SECURE_SSL_REDIRECT = config('DJANGO_SECURE_SSL_REDIRECT', cast=bool, default=True)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # print(f"------------------------------------")
 # print(f"DEBUG IS: {DEBUG}")
