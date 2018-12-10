@@ -114,8 +114,11 @@ $ make testsbash
 
 # Todo
 
-- [ ] Change Schema to receive {"data": } ?
+- [ ] ReOrganize this Repo
+- [ ] Add App Create, Token View, Token Edit
 - [ ] Add JSON Export Endpoint
-- [ ] Make heroku.sh initializer
+- [ ] Add heroku.sh initializer
+- [ ] Simplify Docker Setup
+- [ ] Change Schema to receive {"data": } ?
 - [x] Add Circle CI (see python-stds)
 - [x] Add registration
