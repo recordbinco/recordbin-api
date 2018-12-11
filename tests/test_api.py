@@ -6,6 +6,7 @@ from backend.recordbin.models import AppToken
 
 # TODO: Add Token Tests
 
+
 @pytest.mark.django_db
 @pytest.fixture
 def authenticated_client(client):

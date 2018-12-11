@@ -1,9 +1,7 @@
 # https://pytest-django.readthedocs.io/en/latest/database.html#examples
 import pytest
-
 import os
 import django
-from django.conf import settings
 
 from django.core.management import call_command
 

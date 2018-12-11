@@ -65,6 +65,7 @@ class AppAdmin(BaseModel):
 class AppTokenAdmin(BaseModel):
     list_display = ["key", "created_on", "permissions", linkify("app")]
 
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     pass

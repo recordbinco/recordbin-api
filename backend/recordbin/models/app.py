@@ -7,6 +7,7 @@ from rest_framework import serializers
 
 from .base import BaseModel
 
+
 class App(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
@@ -64,4 +65,3 @@ class AppTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppToken
         fields = ("key", "created_on", "app")
-
