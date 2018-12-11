@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/gtalarico/recordbin-api.svg?style=svg)](https://circleci.com/gh/gtalarico/recordbin-api)
 
-[![codecov](https://codecov.io/gh/gtalarico/recordbin-python/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/recordbin-python)
+[![codecov](https://codecov.io/gh/gtalarico/recordbin-api/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/recordbin-api)
 
 ---
 
