@@ -1,12 +1,7 @@
 # Record Bin
 
 [![CircleCI](https://circleci.com/gh/gtalarico/recordbin-api.svg?style=svg)](https://circleci.com/gh/gtalarico/recordbin-api)
-
 [![codecov](https://codecov.io/gh/gtalarico/recordbin-api/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/recordbin-api)
-
----
-
-![project-logo](https://github.com/gtalarico/recordbin/blob/master/art/logo.png)
 
 Record Bin is flexible deployable API Service that can receive schemaless records for persistent storage.
 
