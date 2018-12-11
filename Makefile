@@ -65,7 +65,7 @@ format:
 lint:
 	docker-compose run --rm --no-deps web bash -c "flake8"
 
-## ci: run test suite
+## requirements: makes a requirements.txt file
 requirements:
 	pipenv lock --requirements > requirements.txt
 
@@ -74,7 +74,7 @@ clean:
 	python3 -c "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.py[co]')]"
 	python3 -c "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__pycache__')]"
 
-## clean: delete python artifacts
+## deploy: deployer container to heroku
 deploy:
 	heroku container:login
 	heroku container:push web --app recordbin-api
