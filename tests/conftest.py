@@ -3,12 +3,14 @@ import pytest
 
 import os
 import django
+from django.conf import settings
 
 from django.core.management import call_command
 
 
 def pytest_configure():
     os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings"
+    os.environ["DJANGO_SECURE_SSL_REDIRECT"] = "0"
     django.setup()
 
 
